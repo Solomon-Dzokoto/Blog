@@ -21,6 +21,7 @@ app.use(cookieParser());
 app.use(cors(corsOption));
 
 app.use("/api/auth", authRouter);
+app.use("/api/data", authRouter);
 
 app.get("/",(req,res)=>{
   res.send("Hello World")

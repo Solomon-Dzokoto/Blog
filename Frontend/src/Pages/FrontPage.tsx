@@ -1,11 +1,8 @@
-
+import Main from "./Main"
 
 const FrontPage = () => {
   return (
-    <div>
-      FrontPage
-      FrontPage
-    </div>
+    <Main />
   )
 }
 
