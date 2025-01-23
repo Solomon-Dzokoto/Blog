@@ -6,9 +6,11 @@ import FrontPage from "./Pages/FrontPage"
 import Layout from './Components/Layout/Layout'
 import CreateBlogPage from "./Pages/CreateBlogPage"
 import UseProvider from "./context/useContextApi";
-import Category from "./Pages/Category" 
+import Category from "./Pages/Category"
 import Post from "./Pages/Post"
-
+import RequiredUser from "./Components/RequiredUser"
+import ContactUs from "./Pages/ContactPage"
+import AboutUs from "./Pages/AboutUs"
 
 const App = () => {
 
@@ -19,8 +21,12 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route path="/user-home" element={<FrontPage />} />
-              <Route path="/user-hom/post/:id" element={<Post />} />
-              <Route path="/create/:id" element={<CreateBlogPage />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/user-home/post/:id" element={<Post />} />
+              <Route path="/"  element={<RequiredUser/>}>
+                <Route path="/create/:id" element={<CreateBlogPage />} />
+              </Route>
               <Route path="/post/:id" element={<Post />} />
               <Route path="/category/:id" element={<Category />} />
             </Route>

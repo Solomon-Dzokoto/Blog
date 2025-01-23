@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import useContextValue from '../../hooks/useContextValue'
 
 const Signup = () => {
     const [credentials, setCredentials] = useState({ Name: '', Email: '', Password: '' });
     const [errorMessage, setErrorMessage] = useState<string>('');
     const navigate = useNavigate();
+    const {setUser}= useContextValue();
+
+
+
     const { Name, Email, Password } = credentials
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("Submitting login with:", credentials);
-        if(!Email || !Password || !Name){
-            setErrorMessage("All field required")
-            return;
-        } 
         if (!Email.trim() || !Password.trim() || !Name.trim()) {
             setErrorMessage("All fields are required.");
             return;
-          }
-              
+        }
         try {
 
             const response = await fetch(`http://localhost:5000/api/auth/signup`, {
@@ -29,10 +29,12 @@ const Signup = () => {
             });
 
             const json = await response.json();
-            console.log("Response from server:", json);
-
             if (json.success) {
-                localStorage.setItem('token', json.token);
+                const {user,token} = json
+                console.log("Response from server:", user.id);
+                setUser(user);
+                localStorage.setItem('token',token);
+                localStorage.setItem('user',user);
                 navigate('/user-home');
             } else {
                 setErrorMessage(json.message || `Invalid credentials, please try again.${errorMessage}`);
@@ -42,7 +44,6 @@ const Signup = () => {
             setErrorMessage('An error occurred, please try again later.');
         }
     };
-
 
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -2,13 +2,26 @@ import { Link,useParams } from "react-router-dom"
 import logo from '../../assets/logo.png'
 import { FaSearch } from "react-icons/fa"
 import { PiNotePencilThin } from "react-icons/pi";
-import { IoIosNotificationsOutline } from "react-icons/io";
 import { CiUser } from "react-icons/ci";
 import { useState } from "react";
+import useContextValue from "../../hooks/useContextValue"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const {id}=useParams()
+  const {id}=useParams();
+  const { user } = useContextValue()
+
+  const colors = [
+    "bg-red-500",
+    "bg-green-500",
+    "bg-blue-500",
+    "bg-yellow-500",
+    "bg-indigo-500",
+    "bg-purple-500",
+    "bg-pink-500",
+  ]
+
+  const randomColor = colors[Math.floor(Math.random() * colors.length)]
 
 
   return (
@@ -31,12 +44,14 @@ const Header = () => {
         />
       </div>
       <div className="flex md:gap-4 items-center gap-2">
-        <Link to={`create/${id}`}>
+        <Link to={`/create/${id}`}>
           <p className="hidden md:flex items-center gap-2 text-gray-500"><span className="text-[1.5rem]"><PiNotePencilThin /></span>Write</p>
         </Link>
-
-        <span className="text-[1.5rem] text-gray-500"><IoIosNotificationsOutline /></span>
-        <span className="p-2 bg-gray-100 rounded-full"><CiUser /></span>
+        <span className={` ${user?`${randomColor} text-white font-semibold  px-4`:"bg-gray-100 "} p-2 rounded-full`}>
+          {
+           user ? <span >{user.Name.substring(0,1).toUpperCase()}</span>  : <CiUser />}
+          
+          </span>
       </div>
 
     </header>

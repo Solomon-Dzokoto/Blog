@@ -59,7 +59,7 @@ export const Signup = [
         message: "User created successfully",
         token: token,
         user: {
-          _id: user._id,
+          id: user._id,
           Email: user.Email,
           Name: user.Name,
           verificationDate: user.verificationDate,

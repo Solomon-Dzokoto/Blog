@@ -3,7 +3,10 @@ import { IoMdClose } from "react-icons/io";
 import { BsPlusLg } from "react-icons/bs";
 import { useState } from "react";
 import useFileUpload from "../hooks/useFecthFile";
-import axios from "axios";
+import { v4 as uuid } from "uuid"
+import ContextValue from "../hooks/useContextValue";
+import { useNavigate } from "react-router-dom";
+import { Props } from "../data/blogData";
 
 interface CredentialProps {
   title: string;
@@ -26,6 +29,8 @@ const CreateBlogPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { filePreview, fileType, handleFileChange, resetFile } = useFileUpload();
+  const { posts, data } =ContextValue()
+  const navigate = useNavigate()
 
   const handleOnchange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -35,7 +40,61 @@ const CreateBlogPage = () => {
       ...prev,
       [name]: value,
     }));
+
+
+
   };
+
+  const addSubmitData = (e: React.FormEvent<HTMLFormElement>) => {
+
+    e.preventDefault();
+
+    const { title, details, category, image, video } = credential;
+
+    console.log(image?.name)
+    if (!title || !details) {
+      alert("Both title and details are required.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    setSuccess("")
+
+    try {
+      const id = Number(uuid())
+      console.log(id)
+      const newPost : Props = {
+        id,
+        title,
+        details,
+        category,
+        path:image?.name || video?.name,
+        date: new Date().toDateString(),
+      }
+      posts.unshift(newPost)
+      data.unshift(newPost)
+      setSuccess("Your Blog has been created successfully!");
+      setCredential({
+        title: "",
+        details: "",
+        category: "Others",
+        image: null,
+        video: null,
+      })
+      alert("Your Blog has been created successfully!")
+      resetFile();
+      navigate(`/post/${id}`)
+    } catch (error) {
+      console.error(`Error: ${error}`)
+    }
+    finally {
+      setLoading(false)
+    }
+
+  }
+
+
 
   const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -58,60 +117,11 @@ const CreateBlogPage = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const { title, details, category, image, video } = credential;
-
-    // Validate required fields
-    if (!title || !details) {
-      alert("Both title and details are required.");
-      return;
-    }
-
-    setLoading(true);
-    setError("");
-    setSuccess("");
-
-    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
-    try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("details", details);
-      formData.append("category", category);
-      if (image) formData.append("image", image);
-      if (video) formData.append("video", video);
-
-      await axios.post(`${apiUrl}/api/data`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      setSuccess("Your Blog has been created successfully!");
-      setCredential({
-        title: "",
-        details: "",
-        category: "Others",
-        image: null,
-        video: null,
-      })
-      resetFile();
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.message) {
-        setError(`Error: ${error.message || "Something went wrong."}`);
-      } else {
-        setError("Network error or server is unreachable.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <main className="px-[clamp(1rem,6vw,4rem)] py-12 min-h-screen">
-      <form onSubmit={handleSubmit} className="grid">
+      <form onSubmit={addSubmitData} className="grid">
         <div className="relative">
-         
+
           {filePreview && (
             <span
               onClick={() => {
@@ -124,7 +134,6 @@ const CreateBlogPage = () => {
             </span>
           )}
 
-          {/* File Preview */}
           {filePreview && fileType === "image" && (
             <img src={filePreview} alt="Preview" className="h-[50vh] block rounded-md" />
           )}
@@ -134,7 +143,6 @@ const CreateBlogPage = () => {
             </video>
           )}
 
-          {/* File Upload Options */}
           {!filePreview && showFileOptions && (
             <div className="flex absolute transition-all left-20 ml-8 gap-4">
               <label

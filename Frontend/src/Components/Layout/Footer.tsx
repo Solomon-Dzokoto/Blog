@@ -20,14 +20,16 @@ const Footer = () => {
         </div>
         <ul className="flex flex-wrap gap-12 ">
           {
-            Object.keys(categoryPage).map((key) => (
+            Object.keys(categoryPage).map((key) => {
+              const items = categoryPage[key as keyof typeof categoryPage]; 
+              return(
               <li key={key}>
                 <Link to={`/category/${key}`}>
-                <h2 className="text-[1.5rem]">{key}</h2>
+                  <h2 className="text-[1.5rem]">{key}</h2>
                 </Link>
-                
+
                 {
-                  categoryPage[key].map((item) => (
+                  (items).map((item) => (
                     <div key={item} >
                       <small className="block mt-2 text-gray-500">{item}</small>
                     </div>
@@ -36,16 +38,16 @@ const Footer = () => {
                 }
 
               </li>
-            ))
+            )})
           }
         </ul>
       </div>
       <div className="flex items-center justify-between">
-      <small className="inline-block mt-8 md:mt-2">Copyright &copy; {(new Date).getFullYear()} Mood.All right reserved.</small>
-      <a href="#Top"><span className="bg-slate-100 text-red-600 cursor-pointer"><FaArrowAltCircleUp/></span></a>
-      
+        <small className="inline-block mt-8 md:mt-2">Copyright &copy; {(new Date).getFullYear()} Mood.All right reserved.</small>
+        <a href="#Top"><span className="bg-slate-100 text-red-600 cursor-pointer"><FaArrowAltCircleUp /></span></a>
+
       </div>
-     
+
 
     </footer>
   )

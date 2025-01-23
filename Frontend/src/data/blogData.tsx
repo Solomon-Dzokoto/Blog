@@ -25,12 +25,14 @@ import image24 from '../assets/ssss.jpeg'
 export interface Props {
     id: number;
     path?: string;
-    user: string;
-    date: string;
+    user?: string;
+    date?: string;
     title: string;
     details?: string;
     category: string;
     className?: string;
+    image?: File | null;
+    video?: File | null;
 
 }
 
@@ -58,7 +60,7 @@ export const data: Props[] = [
         id: 5,
         title: "The Future of Remote Work",
         user: "BBC",
-        details: " Remote work has gone from being a necessity during the pandemic to a preferred choice for many employees. This blog could delve into the benefits and challenges of remote and hybrid w'o 'r    k models, the importance of building a strong remote company culture, and the tools that are enabling this transition. Offer advice for individua'l 's     looking to excel in remote roles, including tips for date management, staying productive, and maintaining work-life balance.",
+        details: " Remote work has gone from being a necessity during the pandemic to a preferred choice for many employees. This blog could delve into the benefits and challenges of remote and hybrid w'o 'r    k models, the importance of building a strong remote company culture, and the tools that are enabling this transition. Offer advice for individuals     looking to excel in remote roles, including tips for date management, staying productive, and maintaining work-life balance.",
         category: "Business",
         path: image5,
         date: "10-09-24"
@@ -279,7 +281,7 @@ export const categoryPage: Page = {
     Others: ["Job Opportunities", "Mentorship", "Investment", "Work for Mood", "Support Us"]
 }
 
-const posts = [
+const posts  = [
 
     {
         id: 13,

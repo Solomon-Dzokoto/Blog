@@ -1,8 +1,21 @@
 import image from '../assets/home-removebg-preview.png';
 import logo from '../assets/logo.png'
-import { Link } from 'react-router-dom';
-const Home = () => {
+import { Link, useNavigate } from 'react-router-dom';
+import { categoryPage } from '../data/blogData'
+import useContextValue from '../hooks/useContextValue'
 
+const Home = () => {
+  const navigate = useNavigate()
+
+  const { user } = useContextValue();
+
+  const read = () => {
+    if (!user) {
+      navigate('/signup')
+    } else {
+      navigate('/user-home')
+    }
+  }
 
   return (
     <div className='min-h-screen'>
@@ -31,29 +44,42 @@ const Home = () => {
           </Link>
         </nav>
       </header>
-      <main style={{ paddingInline: "clamp(1rem,5vw,6rem)",gridTemplateColumns:"2fr 1fr"}} className='grid min-h-[80vh]  py-4'>
+      <main style={{ paddingInline: "clamp(1rem,5vw,6rem)", gridTemplateColumns: "2fr 1fr" }} className='grid min-h-[80vh]  py-4'>
         <div className=' grid place-content-center  gap-y-4'>
-          <h1  className=' text-[4rem] font-extrabold'>Human <br /> experiences & concepts</h1>
+          <h1 className=' text-[4rem] font-extrabold'>Human <br /> experiences & concepts</h1>
           <p style={{ fontSize: "clamp(1rem,2vw,1.5rem)" }}>A platform to study,create and deepen your knowledge</p>
-          <Link to='/signup'>
-            <button className='w-fit md:bg-[#032b13] bg-[#206173] text-white transition pointer hover:opacity-95 py-2 px-4 rounded-[2rem]'>
+            <button onClick={read} className='w-fit md:bg-[#032b13] bg-[#206173] text-white transition pointer hover:opacity-95 py-2 px-4 rounded-[2rem]'>
               Start reading
             </button>
-          </Link>
         </div>
         <span className='hidden place-content-center bg-blend-multiply md:inline-block '>
           <img
             src={image}
-            alt="hero" 
+            alt="hero"
             className='object-cover'
-            />
+          />
         </span>
       </main>
       <footer style={{ paddingInline: "clamp(1rem,5vw,6rem)" }} className='md:bg-transparent  bg-[#032b13] py-4  border-t-[.1rem] border-[#1e5d6c]'>
         <ul className='flex text-white md:text-black gap-4 justify-center'>
-         <li>Blog</li>
-         <li>Blog</li>
-         <li>Blog</li>
+          {
+            Object.keys(categoryPage).map((key) => {
+              return (
+                <li key={key}>
+                  <Link to={`/category/${key}`}>
+                    <h2 className=" text-[#1e5d6c] text-[1.2rem]">{key}</h2>
+                  </Link>
+                </li>
+              )
+            })
+          }
+          <Link to='/contact'>
+          <li><h2 className=" text-[#1e5d6c] text-[1.2rem]">Contact Us</h2></li>
+          </Link>
+          <Link to='/about'>
+          <li><h2 className=" text-[#1e5d6c] text-[1.2rem]">About Us</h2></li>
+          </Link>
+       
         </ul>
       </footer>
     </div>
