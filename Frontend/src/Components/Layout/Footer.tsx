@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 
 const Footer = () => {
   return (
-    <footer className="px-[clamp(1rem,5vw,6rem)] py-8">
+    <footer className="px-[clamp(1rem,5vw,6rem)] py-8 border-2 border-[#1e5d6c]">
       <div className="grid gap-8 md:flex md:items-center">
         <div className="">
           <h1 className="text-red-600 text-[2rem]">Mood</h1>
