@@ -31,14 +31,17 @@ const Home = () => {
         </Link>
 
         <nav className='flex items-center gap-4'>
+          <Link to='/about'>
           <a href="#" className='pointer'>Our Story</a>
+          </Link>
+         
           <Link to='/signin'>
             <button className='pointer'>
               Sign in
             </button>
           </Link>
           <Link to='/signup'>
-            <button className='bg-[#032b13] text-white transition pointer hover:opacity-95 py-2 px-4 rounded-[2rem]'>
+            <button className='w-fit md:bg-[#032b13] bg-[#206173] text-white transition pointer hover:opacity-95 py-2 px-4 rounded-[2rem]'>
               Get started
             </button>
           </Link>
@@ -60,24 +63,25 @@ const Home = () => {
           />
         </span>
       </main>
-      <footer style={{ paddingInline: "clamp(1rem,5vw,6rem)" }} className='md:bg-transparent  bg-[#032b13] py-4  border-t-[.1rem] border-[#1e5d6c]'>
-        <ul className='flex text-white md:text-black gap-4 justify-center'>
+      <footer style={{ paddingInline: "clamp(1rem,5vw,6rem)" }} className='md:bg-transparent bg-[#1e5d6c] text-white py-4  border-t-[.1rem] border-[#1e5d6c]'>
+        <ul className=' grid grid-cols-4 md:flex text-white md:text-black gap-4 justify-center'>
           {
             Object.keys(categoryPage).map((key) => {
               return (
-                <li key={key}>
+                <li onClick={read} key={key}>
+                
                   <Link to={`/category/${key}`}>
-                    <h2 className=" text-[#1e5d6c] text-[1.2rem]">{key}</h2>
+                    <h2 className=" md:text-[#1e5d6c] text-[.9rem]">{key}</h2>
                   </Link>
                 </li>
               )
             })
           }
           <Link to='/contact'>
-          <li><h2 className=" text-[#1e5d6c] text-[1.2rem]">Contact Us</h2></li>
+          <li><h2 className=" md:text-[#1e5d6c] text-[.9rem]">Contact Us</h2></li>
           </Link>
           <Link to='/about'>
-          <li><h2 className=" text-[#1e5d6c] text-[1.2rem]">About Us</h2></li>
+          <li><h2 className=" md:text-[#1e5d6c] text-[.9rem]">About Us</h2></li>
           </Link>
        
         </ul>

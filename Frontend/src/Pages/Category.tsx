@@ -1,13 +1,15 @@
-import posts from "../data/blogData"
 import { Link, useParams } from "react-router-dom"
 import Card from "../Components/ui/Card";
 import { Card2 } from "../Components/ui/Card";
 import { data, data4 } from "../data/blogData";
 import video from '../assets/iPhone 16 and iPhone 16 Plus - Apple-01.mp4'
+import useContextValue from "../hooks/useContextValue"
 
 const Category = () => {
     const { id } = useParams();
-    const category = posts.filter(post => post.category === id);
+    const { filteredPost } = useContextValue()
+
+    const category = filteredPost.filter(post => post.category === id);
     const { title, details, user } = data4
 
     if (id === "top-products") {

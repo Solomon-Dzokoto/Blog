@@ -29,7 +29,7 @@ const CreateBlogPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { filePreview, fileType, handleFileChange, resetFile } = useFileUpload();
-  const { posts, data } =ContextValue()
+  const { filteredPost, data } =ContextValue()
   const navigate = useNavigate()
 
   const handleOnchange = (
@@ -62,8 +62,7 @@ const CreateBlogPage = () => {
     setSuccess("")
 
     try {
-      const id = Number(uuid())
-      console.log(id)
+      const id = uuid()
       const newPost : Props = {
         id,
         title,
@@ -72,7 +71,8 @@ const CreateBlogPage = () => {
         path:image?.name || video?.name,
         date: new Date().toDateString(),
       }
-      posts.unshift(newPost)
+      console.log(newPost)
+      filteredPost.unshift(newPost)
       data.unshift(newPost)
       setSuccess("Your Blog has been created successfully!");
       setCredential({
@@ -84,7 +84,7 @@ const CreateBlogPage = () => {
       })
       alert("Your Blog has been created successfully!")
       resetFile();
-      navigate(`/post/${id}`)
+      navigate(`/user-home`)
     } catch (error) {
       console.error(`Error: ${error}`)
     }
@@ -154,6 +154,7 @@ const CreateBlogPage = () => {
                   type="file"
                   id="file"
                   accept="image/*,video/*"
+                  name={credential.image ? "image" : "video"}
                   onChange={(e) => {
                     handleFileChange(e);
                     fileChange(e);

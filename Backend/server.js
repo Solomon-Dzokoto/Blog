@@ -8,20 +8,24 @@ import cookieParser from "cookie-parser";
 const app = express();
 dotenv.config();
 app.use(express.json());
+const PORT = process.env.PORT || 5000;
+app.use(cookieParser());
 
-const corsOption = {
-  origin: "http://localhost:5173",
-  methods: "GET,POST,PUT,DELETE",
-  allowedHeaders: "Content-Type,Authorization",
+const corsOptions = {
+  origin:  "*", 
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 };
 
-const PORT = process.env.PORT || 5000;
-app.use(cookieParser());
-app.use(cors(corsOption));
+
+
+
+app.use(cors(corsOptions));
+// app.options("*", cors(corsOptions));
 
 app.use("/api/auth", authRouter);
 app.use("/api/data", authRouter);
+
 
 app.get("/",(req,res)=>{
   res.send("Hello World")

@@ -1,15 +1,22 @@
-import { Link,useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import logo from '../../assets/logo.png'
-import { FaSearch } from "react-icons/fa"
 import { PiNotePencilThin } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
 import { useState } from "react";
 import useContextValue from "../../hooks/useContextValue"
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const {id}=useParams();
-  const { user } = useContextValue()
+  const [openMenu, setOpenMenu] = useState<boolean>(false)
+  const { id } = useParams();
+  const { user, search,setSearch } = useContextValue()
+  const navigate = useNavigate();
+
+  const toSignUp = () => navigate('/signup')
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)
+
+
 
   const colors = [
     "bg-red-500",
@@ -35,23 +42,58 @@ const Header = () => {
         </span>
       </Link>
       <div className="relative ">
-        <span className=" absolute cursor-pointer w-fit -right-[6rem]  z-10 md:left-2 md:top-[.9rem] text-gray-400 -top-2" onClick={() => setIsOpen(!isOpen)}><FaSearch /></span>
         <input
-          className={`absolute ${isOpen ? "inline-block" : "hidden"} md:inline-block md:w-[20rem] md:relative md:top-0 md:left-0 md:right-0 top-[5rem] border py-2 rounded-xl px-8 -left-[13rem] -right-[13rem]`}
+          className={` outline-[#206173] border py-2 rounded-xl px-8`}
           type="search"
+          value={search}
           placeholder="search.."
+          onChange={onChange}
           name="search"
         />
       </div>
       <div className="flex md:gap-4 items-center gap-2">
-        <Link to={`/create/${id}`}>
-          <p className="hidden md:flex items-center gap-2 text-gray-500"><span className="text-[1.5rem]"><PiNotePencilThin /></span>Write</p>
-        </Link>
-        <span className={` ${user?`${randomColor} text-white font-semibold  px-4`:"bg-gray-100 "} p-2 rounded-full`}>
+        {
+          !user && (
+            <div className="space-x-1  md:items-center md:flex md:gap-4">
+              <div onClick={()=>setOpenMenu(prev=>!prev)} className={` relative cursor-pointer space-y-1 z-[1000] group flex flex-col w-8  md:hidden`}>
+                <span className={` transition-transform duration-300 ${openMenu?"rotate-45 translate-y-[8px]":""}w-full bg-[#032b13] h-[.1rem] `}></span>
+                <span className={` transition-opacity duration-300 w-4 bg-[#032b13] self-end h-[.1rem] ${openMenu?"opacity-0":"opacity-100"}`}></span>
+                <span className={` transition-transform duration-300 ${openMenu?"-rotate-45 -translate-6-[8px]":""}w-full bg-[#032b13] h-[.1rem]`}></span>
+              </div>
+              { 
+                openMenu && (
+                <div className="fixed md:relative md:right-0 md:top-0 md:flex grid text-center place-content-center top-[4.5rem] left-0 h-screen w-screen bg-black gap-4 bg-opacity-50 md:bg-opacity-100 z-50 " >
+                <Link to='/signin'>
+                  <button className='bg-[#346648] text-white transition pointer hover:opacity-95 w-full px-[4rem] rounded-md py-2 md:px-4 md:rounded-[2rem] '>
+                    Sign in
+                  </button>
+                </Link>
+                <Link to='/signup'>
+                  <button className='bg-[#032b13] text-white transition pointer hover:opacity-95 w-full px-[4rem] rounded-md py-2 md:px-4 md:rounded-[2rem]'>
+                    Sign Up
+                  </button>
+                </Link>
+              </div>)
+}
+
+            </div>
+          )
+        }
+
+        {
+          user && (
+            <Link to={`/create/${id}`}>
+              <p className="flex items-center gap-2 text-gray-500">
+                <span className="text-[1.5rem]"><PiNotePencilThin /></span>
+                Write
+                </p>
+            </Link>
+          )
+        }
+        <span className={` ${user ? `${randomColor} text-white font-semibold  px-4` : "bg-gray-100 "} p-2 rounded-full`}>
           {
-           user ? <span >{user.Name.substring(0,1).toUpperCase()}</span>  : <CiUser />}
-          
-          </span>
+            user ? <span>{user.Name.substring(0, 1).toUpperCase()} </span> : <span className="cursor-pointer" onClick={toSignUp}><CiUser /></span>}
+        </span>
       </div>
 
     </header>

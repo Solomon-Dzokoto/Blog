@@ -1,13 +1,15 @@
 import Card from '../Components/ui/Card.tsx'
 import { Card2 } from '../Components/ui/Card.tsx'
-import { data, data3, data4, data2, isNotDesc, data5 } from '../data/blogData.tsx'
+import {  data3, data4, data2, isNotDesc } from '../data/blogData.tsx'
 import { Props } from '../data/blogData.tsx'
 import { motion } from 'framer-motion'
 import video from '../assets/iPhone 16 and iPhone 16 Plus - Apple-01.mp4'
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { Link } from 'react-router-dom'
+import useContextValue from '../hooks/useContextValue.tsx'
 
 const Main = () => {
+  const {filteredPost} = useContextValue()
 
   const { title, user, details, category } = data4
 
@@ -51,7 +53,7 @@ const Main = () => {
 
         <ul className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
           {
-            data.slice(0, 3).map((item: Props) => (
+            filteredPost.slice(0, 3).map((item: Props) => (
               <Link to={`/post/${item.id}`} className='flex flex-col justify-between' key={item.id}>
                 <Card
                   id={item.id}
@@ -154,8 +156,7 @@ const Main = () => {
           <ul className='grid md:flex gap-2 mt-6 min-h-[60vh] '>
             <li>
               {
-                data5.mustRead.slice(1, 2).map((item) => {
-                  console.log(item.id)
+                filteredPost.slice(1, 2).map((item) => {
                   return (
                      
                     <Link to={`/post/${item.id}`} key={item.id} >
@@ -178,7 +179,7 @@ const Main = () => {
             </li>
             <li>
               {
-                data5.mustRead.slice(0, 1).map((item) => (
+                filteredPost.slice(17, 18).map((item) => (
                   <Link to={`/post/${item.id}`} key={item.id} >
                     <article className="flex-grow w-full relative rounded-[2rem] overflow-hidden">
                       <img
@@ -199,7 +200,7 @@ const Main = () => {
             </li>
             <li>
               {
-                data5.mustRead.slice(2).map((item) => (
+                filteredPost.slice(6,8).map((item) => (
                   <Link to={`/post/${item.id}`} key={item.id} >
                     <article className="grid w-full md:w-[20rem] md:min-h-[10vh] gap-3">
                       <img className="md:w-[20rem] w-full md:h-[8rem] rounded-3xl" src={item.path} alt={title || 'Default name'} />

@@ -1,36 +1,38 @@
 import { useState } from 'react';
+import { FaBackward } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
   const [credentials, setCredentials] = useState({ Email: '', Password: '' });
-  const [errorMessage, setErrorMessage] = useState('')
-  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { Email, Password } = credentials
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/signin`, {
+      const response = await fetch(`"https://blog-osbi-mjomvuid3-solomon-dzokotos-projects.vercel.app/api/auth/signin"`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ Email:Email, Password:Password}),
+        credentials: "include",
+        body: JSON.stringify({ Email: Email, Password: Password }),
       });
-
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const json = await response.json();
       console.log("Response from server:", json);
       if (json.success) {
         localStorage.setItem('token', json.token)
+        localStorage.setItems("user",JSON.stringify(json.user))
         navigate('/user-home');
-        setTimeout(() => {
-
-        }, 500);
 
       } else {
         setErrorMessage(json.message || 'Invalid credentials, please try again.');
+        console.error(json.message || "INVALID CREDENTIALS")
       }
     } catch (error) {
       console.error('Error during login:', error);
@@ -47,10 +49,13 @@ const SignIn = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center p-4 mt-[25px] animate__animated animate__fadeInTopLeft overflow-hidden">
-      <div className="bg-white p-6 shadow-lg shadow-top border-2 border-blue-600 rounded-xl w-96 dark:bg-slate-100">
+    <div className="h-screen flex items-center justify-center p-4 mt-[25px] animate__animated animate__fadeInBottomLeft overflow-hidden">
+      <Link className='absolute top-0 left-4 cursor-pointer' to='/'>
+        <FaBackward />
+      </Link>
+      <div className="bg-white p-6 shadow-lg shadow-top border-2 border-[#1e5d6c] rounded-xl w-96 dark:bg-slate-100">
         <form onSubmit={handleSubmit}>
-          <div className="text-2xl text-blue-600 font-bold capitalize text-center mb-4">
+          <div className="text-2xl text-[#1e5d6c] font-bold capitalize text-center mb-4">
             <h3>welcome back!</h3>
           </div>
 
@@ -83,7 +88,7 @@ const SignIn = () => {
                   </svg>
                 </span>
                 <input
-                  className="w-full placeholder:capitalize px-8 py-1.5 outline-blue-600"
+                  className="w-full  px-8 py-1.5 outline-[#1e5d6c]"
                   type="email"
                   name="Email"
                   id="Email"
@@ -118,7 +123,7 @@ const SignIn = () => {
                   </svg>
                 </span>
                 <input
-                  className="w-full placeholder:capitalize px-8 py-1.5 outline-blue-800"
+                  className="w-full  px-8 py-1.5 outline-[#1e5d6c]"
                   type="password"
                   name="Password"
                   id="Password"
@@ -127,22 +132,21 @@ const SignIn = () => {
                   onChange={onChange}
                   required
                   autoComplete="off"
-
                   minLength={5}
                 />
               </div>
             </div>
             <br />
             <div>
-              <button className="bg-blue-600 text-xl text-white font-medium uppercase p-2 rounded-lg w-full opacity-90 hover:opacity-100" disabled={loading}>
-                {loading ? 'Loading...' : 'Login'}
+              <button className="bg-[#1e5d6c] text-[.9rem] text-xl text-white font-medium uppercase p-2 rounded-lg w-full opacity-90 hover:opacity-100" disabled={loading}>
+                {loading ? 'Loading..' : 'Login'}
               </button>
             </div>
             <div className="text-[18px] text-center mt-4">
               <p>
                 Don't have an account?{' '}
                 <Link
-                  className="capitalize text-blue-600 hover:underline cursor-pointer"
+                  className="capitalize text-[#1e5d6c] hover:underline cursor-pointer"
                   to="/signup"
                 >
                   Sign Up

@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useContextValue from '../../hooks/useContextValue'
+import { FaBackward } from 'react-icons/fa';
+
 
 const Signup = () => {
     const [credentials, setCredentials] = useState({ Name: '', Email: '', Password: '' });
     const [errorMessage, setErrorMessage] = useState<string>('');
     const navigate = useNavigate();
-    const {setUser}= useContextValue();
+    const { setUser } = useContextValue();
 
 
 
@@ -20,21 +22,25 @@ const Signup = () => {
         }
         try {
 
-            const response = await fetch(`http://localhost:5000/api/auth/signup`, {
+            const response = await fetch(`https://blog-osbi-mjomvuid3-solomon-dzokotos-projects.vercel.app/api/auth/signup`, {
                 method: 'POST',
+                credentials: "include",
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ Name, Email, Password }),
             });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
 
             const json = await response.json();
             if (json.success) {
-                const {user,token} = json
+                const { user, token } = json
                 console.log("Response from server:", user.id);
                 setUser(user);
-                localStorage.setItem('token',token);
-                localStorage.setItem('user',user);
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', user);
                 navigate('/user-home');
             } else {
                 setErrorMessage(json.message || `Invalid credentials, please try again.${errorMessage}`);
@@ -52,11 +58,21 @@ const Signup = () => {
     return (
         <>
             <div className="h-screen flex items-center mt-12 justify-center p-4 animate__animated animate__fadeInDown">
-                <div className="bg-white p-6 shadow-lg shadow-top border-2 border-blue-600 rounded-xl w-96 dark:bg-slate-100">
+
+                <Link className='absolute top-0 left-4 cursor-pointer' to='/'>
+                    <FaBackward />
+                </Link>
+
+                <div className="bg-white p-6 shadow-lg shadow-top border-2 border-[#1e5d6c] rounded-xl w-96 dark:bg-slate-100">
                     <form onSubmit={handleSubmit}>
-                        <div className="text-2xl text-blue-600 font-bold capitalize text-center mb-4">
+                        <div className="text-2xl text-[#1e5d6c] font-bold capitalize text-center mb-4">
                             <h3>Create an account !</h3>
                         </div>
+                        {errorMessage && (
+                            <div className="text-red-600 text-center text-sm mb-2">
+                                {errorMessage}
+                            </div>
+                        )}
                         <div>
 
                             <div>
@@ -116,7 +132,7 @@ const Signup = () => {
                                         </svg>
                                     </span>
                                     <input
-                                        className="w-full placeholder:capitalize px-8 py-1.5 outline-blue-600"
+                                        className="w-full placeholder:capitalize px-8 py-1.5 outline-[#1e5d6c]"
                                         type="email"
                                         name="Email"
                                         id="Email"
@@ -152,7 +168,7 @@ const Signup = () => {
                                         </svg>
                                     </span>
                                     <input
-                                        className="w-full placeholder:capitalize px-8 py-1.5 outline-blue-800"
+                                        className="w-full placeholder:capitalize px-8 py-1.5 outline-[#1e5d6c]"
                                         type="password"
                                         id='Password'
                                         name='Password'
@@ -168,7 +184,7 @@ const Signup = () => {
                             </div>
                             <br />
                             <div>
-                                <button className="bg-blue-600 text-xl text-white font-medium uppercase p-2 rounded-lg w-full opacity-90 hover:opacity-100">
+                                <button className="bg-[#1e5d6c] text-xl text-white font-medium uppercase p-2 rounded-lg w-full opacity-90 hover:opacity-100">
                                     Sign Up
                                 </button>
                             </div>
@@ -176,7 +192,7 @@ const Signup = () => {
                                 <p>
                                     already have an account?{" "}
                                     <Link
-                                        className="capitalize text-blue-600 hover:underline cursor-pointer"
+                                        className="capitalize text-[#1e5d6c] hover:underline cursor-pointer"
                                         to="/signin"
                                     >
                                         Sign In

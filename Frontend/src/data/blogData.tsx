@@ -23,7 +23,7 @@ import image24 from '../assets/ssss.jpeg'
 
 
 export interface Props {
-    id: number;
+    id: number | string;
     path?: string;
     user?: string;
     date?: string;
@@ -282,7 +282,33 @@ export const categoryPage: Page = {
 }
 
 const posts  = [
-
+    {
+        id: 4,
+        title: "Sustainable Living in 2025",
+        user: "Netflix",
+        details: "Sustainability is more than just a buzzword; it’s a necessity for the planet’s future. This blog could focus on ways to incorporate eco-friendly habits into daily life, such as reducing plastic usage, adopting energy-efficient appliances, and supporting ethical brands. Include tips on sustainable fashion, zero-waste home practices, and how technology is enabling green living through apps and gadgets. Highlight stories of individua'l 's     or communities successfully adopting sustainable lifestyles to inspire readers.",
+        category: "Lifestyle",
+        path: image4,
+        date: "12-003-23"
+    },
+    {
+        id: 20,
+        title: "Supplements in Sports: What Works and What’s Just Hype?",
+        user: "ECN",
+        details: "The market for fitness and performance supplements is booming, but how many of these products are actually effective? This blog could dive into the world of sports supplements, examining popular products like protein powders, creatine, and BCAAs, and how they contribute to athletic performance. Discuss the science behind each supplement, including whether there’s credible research to back their benefits. Offer advice on which supplements are worth consider'i 'n    g and how to iden't 'i    fy misleading claims in the supplement industry.",
+        category: "Sports",
+        path: image19,
+        date: "20-09-23"
+    },
+    {
+        id: 5,
+        title: "The Future of Remote Work",
+        user: "BBC",
+        details: " Remote work has gone from being a necessity during the pandemic to a preferred choice for many employees. This blog could delve into the benefits and challenges of remote and hybrid w'o 'r    k models, the importance of building a strong remote company culture, and the tools that are enabling this transition. Offer advice for individua'l 's     looking to excel in remote roles, including tips for date management, staying productive, and maintaining work-life balance.",
+        category: "Business",
+        path: image5,
+        date: "10-09-24"
+    },
     {
         id: 13,
         title: "The Role of ChatGPT in Content Creation",
@@ -394,15 +420,6 @@ const posts  = [
         date: "20-08-24"
     },
     {
-        id: 20,
-        title: "Supplements in Sports: What Works and What’s Just Hype?",
-        user: "ECN",
-        details: "The market for fitness and performance supplements is booming, but how many of these products are actually effective? This blog could dive into the world of sports supplements, examining popular products like protein powders, creatine, and BCAAs, and how they contribute to athletic performance. Discuss the science behind each supplement, including whether there’s credible research to back their benefits. Offer advice on which supplements are worth consider'i 'n    g and how to iden't 'i    fy misleading claims in the supplement industry.",
-        category: "Sports",
-        path: image19,
-        date: "20-09-23"
-    },
-    {
         id: 3,
         title: "The Rise of Electric Vehicles: Revolutionizing the Automotive Industry",
         user: "Tesla",
@@ -410,24 +427,6 @@ const posts  = [
         category: "Technology",
         path: image3,
         date: "20-09-23"
-    },
-    {
-        id: 4,
-        title: "Sustainable Living in 2025",
-        user: "Netflix",
-        details: "Sustainability is more than just a buzzword; it’s a necessity for the planet’s future. This blog could focus on ways to incorporate eco-friendly habits into daily life, such as reducing plastic usage, adopting energy-efficient appliances, and supporting ethical brands. Include tips on sustainable fashion, zero-waste home practices, and how technology is enabling green living through apps and gadgets. Highlight stories of individua'l 's     or communities successfully adopting sustainable lifestyles to inspire readers.",
-        category: "Lifestyle",
-        path: image4,
-        date: "12-003-23"
-    },
-    {
-        id: 5,
-        title: "The Future of Remote Work",
-        user: "BBC",
-        details: " Remote work has gone from being a necessity during the pandemic to a preferred choice for many employees. This blog could delve into the benefits and challenges of remote and hybrid w'o 'r    k models, the importance of building a strong remote company culture, and the tools that are enabling this transition. Offer advice for individua'l 's     looking to excel in remote roles, including tips for date management, staying productive, and maintaining work-life balance.",
-        category: "Business",
-        path: image5,
-        date: "10-09-24"
     },
     {
         id: 14,
