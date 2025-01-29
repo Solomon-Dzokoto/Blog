@@ -20,7 +20,7 @@ export const Signup = [
       }
 
       res.setHeader('Access-Control-Allow-Origin', 'https://quiet-tanuki-af76a9.netlify.app');
-      res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+      res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS,GET');
       res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
       res.setHeader('Access-Control-Allow-Credentials', 'true');
 
@@ -28,6 +28,9 @@ export const Signup = [
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
+  }
+  if (req.method === "POST") {
+    req.body = JSON.parse(req.body);
   }
   
       const { Password, Email, Name } = req.body;

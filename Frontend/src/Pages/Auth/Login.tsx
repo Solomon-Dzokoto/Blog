@@ -8,11 +8,14 @@ const SignIn = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { Email, Password } = credentials
+  const VERCEL_URL = import.meta.env.VERCEL_URL
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`"https://blog-osbi-mjomvuid3-solomon-dzokotos-projects.vercel.app/api/auth/signin"`, {
+      const response = await fetch(`${VERCEL_URL}/api/auth/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +32,6 @@ const SignIn = () => {
         localStorage.setItem('token', json.token)
         localStorage.setItems("user",JSON.stringify(json.user))
         navigate('/user-home');
-
       } else {
         setErrorMessage(json.message || 'Invalid credentials, please try again.');
         console.error(json.message || "INVALID CREDENTIALS")
@@ -38,9 +40,7 @@ const SignIn = () => {
       console.error('Error during login:', error);
       setErrorMessage('An error occurred, please try again later.');
     } finally {
-
       setLoading(false);
-
     }
   };
 
