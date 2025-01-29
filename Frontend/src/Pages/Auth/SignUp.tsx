@@ -1,18 +1,16 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useContextValue from '../../hooks/useContextValue'
 import { FaBackward } from 'react-icons/fa';
-
 
 const Signup = () => {
     const [credentials, setCredentials] = useState({ Name: '', Email: '', Password: '' });
     const [errorMessage, setErrorMessage] = useState<string>('');
     const navigate = useNavigate();
     const { setUser } = useContextValue();
-
-
-
     const { Name, Email, Password } = credentials
+    const VERCEL_URL = import.meta.env.VERCEL_URL
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("Submitting login with:", credentials);
@@ -22,19 +20,17 @@ const Signup = () => {
         }
         try {
 
-            const response = await fetch(`https://blog-osbi-mjomvuid3-solomon-dzokotos-projects.vercel.app/api/auth/signup`, {
-                method: 'POST',
-                credentials: "include",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+            const response = await fetch(`${VERCEL_URL}/api/auth/signup`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({ Name, Email, Password }),
+                credentials : "include"
             });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
-              }
-
-            const json = await response.json();
+            }
+            console.log()
+            const json = await response.json()
             if (json.success) {
                 const { user, token } = json
                 console.log("Response from server:", user.id);
