@@ -22,7 +22,7 @@ export const Signin = [
   
       const { Email, Password } = req.body;
 
-      res.setHeader("Access-Control-Allow-Origin", "https://quiet-tanuki-af76a9.netlify.app");
+      res.setHeader("Access-Control-Allow-Origin", "https://stalwart-tartufo-733b56.netlify.app");
       res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
       res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
       res.setHeader("Access-Control-Allow-Credentials", "true");
