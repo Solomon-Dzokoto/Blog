@@ -29,7 +29,7 @@ const CreateBlogPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { filePreview, fileType, handleFileChange, resetFile } = useFileUpload();
-  const { filteredPost, data } =ContextValue()
+  const { filteredPost, data } = ContextValue()
   const navigate = useNavigate()
 
   const handleOnchange = (
