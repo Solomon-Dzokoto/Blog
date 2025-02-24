@@ -52,7 +52,7 @@ const Signup = () => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
     };
     return (
-        <>
+        <form >
             <div className="h-screen flex items-center mt-12 justify-center p-4 animate__animated animate__fadeInDown">
 
                 <Link className='absolute top-0 left-4 cursor-pointer' to='/'>
@@ -199,7 +199,7 @@ const Signup = () => {
                     </form>
                 </div>
             </div>
-        </>
+        </form>
     )
 }
 

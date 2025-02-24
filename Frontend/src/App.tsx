@@ -26,9 +26,9 @@ const App = () => {
               <Route path="/user-home/post/:id" element={<Post />} />
               <Route path="/"  element={<RequiredUser/>}>
                 <Route path="/create/:id" element={<CreateBlogPage />} />
-              </Route>
-              <Route path="/post/:id" element={<Post />} />
-              <Route path="/category/:id" element={<Category />} />
+                <Route path="/post/:id" element={<Post />} />
+                <Route path="/category/:id" element={<Category />} />
+              </Route>   
             </Route>
             <Route index element={<Home />} />
             <Route path="/signin" element={<SignIn />} />

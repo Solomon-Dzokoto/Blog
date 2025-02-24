@@ -1,6 +1,6 @@
 import express from "express"
-import { Signup } from "../api/auth/signup.js"
-import { Signin } from "../api/auth/signup.js"
+import { Signin } from "../another/login.js"
+import { Signup }from "../another/signup.js"
 const router=express.Router()
 
 

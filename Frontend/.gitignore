@@ -1,39 +1,24 @@
-
-/node_modules/
-
-
-/dist/
-/build/
-
-/public/static/
-
-
-/tsconfig.tsbuildinfo
-
-
-.env.local
-.env.development.local
-.env.production
-
-
-.vscode/
-/.idea/
-
-
-.DS_Store
-Thumbs.db
-
-
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-.tailwindcss/
+node_modules
+dist
+dist-ssr
+*.local
 
-
-
-postcss.config.js
-
-# Jest (if you're using Jest for testing)
-.jest-cache/
-/coverage/
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
