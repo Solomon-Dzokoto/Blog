@@ -5,11 +5,13 @@ import { CiUser } from "react-icons/ci";
 import { useState } from "react";
 import useContextValue from "../../hooks/useContextValue"
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../../store/useUserStore";
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
   const { id } = useParams();
-  const { user, search,setSearch } = useContextValue()
+  const {  search,setSearch } = useContextValue()
+  const user = useUserStore((state)=>state.user)
   const navigate = useNavigate();
 
   const toSignUp = () => navigate('/signup')
@@ -92,7 +94,7 @@ const Header = () => {
         }
         <span className={` ${user ? `${randomColor} text-white font-semibold  px-4` : "bg-gray-100 "} p-2 rounded-full`}>
           {
-            user ? <span>{user.Name.substring(0, 1).toUpperCase()} </span> : <span className="cursor-pointer" onClick={toSignUp}><CiUser /></span>}
+            user ? <span>{user && (user?.name as string).substring(0, 1).toUpperCase()} </span> : <span className="cursor-pointer" onClick={toSignUp}><CiUser /></span>}
         </span>
       </div>
 

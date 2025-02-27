@@ -16,7 +16,7 @@ const Main = () => {
 
 
   const groupedCat: Record<string, isNotDesc[]> = data2.reduce((acc, item) => {
-    if (!acc[item.category]) acc[item.category] = []
+    if (!acc[item.category]) acc[item.category] = [];
     acc[item.category].push(item)
     return acc
   }, {} as Record<string, isNotDesc[]>)

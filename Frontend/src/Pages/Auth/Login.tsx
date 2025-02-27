@@ -1,52 +1,25 @@
-import { useState } from 'react';
+import { useState,useActionState } from 'react';
 import { FaBackward } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom'
+import { onLogin } from '../../server/AuthCheck';
+import { useUserStore } from '../../store/useUserStore';
+import type {Output} from '../../server/AuthCheck'
+
 
 const SignIn = () => {
-  const [credentials, setCredentials] = useState({ Email: '', Password: '' });
-  const [errorMessage, setErrorMessage] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const { Email, Password } = credentials
-  const VERCEL_URL = import.meta.env.VERCEL_URL
+  const user = useUserStore((state) => state.user)
+  const handleLogin = async( prevState:Output ,formData: FormData) => {
+    const email = formData.get('email') as string;
 
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const response = await fetch(`${VERCEL_URL}/auth/signin`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: "include",
-        body: JSON.stringify({ Email: Email, Password: Password }),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const json = await response.json();
-      console.log("Response from server:", json);
-      if (json.success) {
-        localStorage.setItem('token', json.token)
-        localStorage.setItems("user",JSON.stringify(json.user))
-        navigate('/user-home');
-      } else {
-        setErrorMessage(json.message || 'Invalid credentials, please try again.');
-        console.error(json.message || "INVALID CREDENTIALS")
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      setErrorMessage('An error occurred, please try again later.');
-    } finally {
-      setLoading(false);
+    if (email !== user?.email) {
+      console.log("user does not exist")
+      throw new Error("User does not exist")
     }
-  };
+   return await onLogin(prevState,formData)
+  }   
+  const [data,action,isPending]=useActionState(handleLogin,{} as Output)
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
+
 
   return (
     <div className="h-screen flex items-center justify-center p-4 mt-[25px] animate__animated animate__fadeInBottomLeft overflow-hidden">
@@ -54,14 +27,14 @@ const SignIn = () => {
         <FaBackward />
       </Link>
       <div className="bg-white p-6 shadow-lg shadow-top border-2 border-[#1e5d6c] rounded-xl w-96 dark:bg-slate-100">
-        <form onSubmit={handleSubmit}>
+        <form action={action}>
           <div className="text-2xl text-[#1e5d6c] font-bold capitalize text-center mb-4">
             <h3>welcome back!</h3>
           </div>
 
-          {errorMessage && (
+          {data?.error && (
             <div className="text-red-600 text-center mb-4">
-              <p>{errorMessage}</p>
+              <p>{data?.error}</p>
             </div>
           )}
 
@@ -90,12 +63,10 @@ const SignIn = () => {
                 <input
                   className="w-full  px-8 py-1.5 outline-[#1e5d6c]"
                   type="email"
-                  name="Email"
+                  name="email"
                   id="Email"
-                  autoComplete="off"
-                  value={credentials.Email}
-                  placeholder="example@company.com"
-                  onChange={onChange}
+                  autoComplete="off"         
+                  placeholder="example@company.com"      
                   required
                   minLength={5}
                 />
@@ -126,10 +97,8 @@ const SignIn = () => {
                   className="w-full  px-8 py-1.5 outline-[#1e5d6c]"
                   type="password"
                   name="Password"
-                  id="Password"
-                  value={credentials.Password}
+                  id="Password" 
                   placeholder="enter Password"
-                  onChange={onChange}
                   required
                   autoComplete="off"
                   minLength={5}
@@ -139,7 +108,7 @@ const SignIn = () => {
             <br />
             <div>
               <button className="bg-[#1e5d6c] text-[.9rem] text-xl text-white font-medium uppercase p-2 rounded-lg w-full opacity-90 hover:opacity-100" disabled={loading}>
-                {loading ? 'Loading..' : 'Login'}
+                {isPending ? 'Loading..' : 'Login'}
               </button>
             </div>
             <div className="text-[18px] text-center mt-4">

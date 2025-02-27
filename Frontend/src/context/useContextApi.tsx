@@ -1,4 +1,4 @@
-import { createContext, useEffect } from "react"
+import { createContext, useContext } from "react"
 import { useState } from "react"
 import { data, Props } from "../data/blogData";
 import posts from "../data/blogData";
@@ -49,11 +49,8 @@ const UseProvider = ({ children }: ProviderProps) => {
 
   const clearUser = () => {
     setUser(null)
-    localStorage.removeItem("user")
     localStorage.removeItem('token');
   }
-
-
 
 
   const filteredPost: Props[] = posts.filter(
@@ -62,12 +59,6 @@ const UseProvider = ({ children }: ProviderProps) => {
       post.details.toLowerCase().includes(search.toLowerCase()) ||
       post.category.toLowerCase().includes(search.toLowerCase())
   )
-
-  useEffect(() => {
-    const user = localStorage.getItem("user")
-    console.log(filteredPost)
-    console.log(user)
-  }, [search])
 
 
 
@@ -79,3 +70,11 @@ const UseProvider = ({ children }: ProviderProps) => {
 }
 
 export default UseProvider
+
+const useValueInContext = () => {
+  const data = useContext(context)
+  if(!data){
+    throw new Error("No data found in the context. Ensure the provider is wrapping your component.");
+  }
+  return data
+}

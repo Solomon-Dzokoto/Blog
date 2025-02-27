@@ -12,8 +12,8 @@ import RequiredUser from "./Components/RequiredUser"
 import ContactUs from "./Pages/ContactPage"
 import AboutUs from "./Pages/AboutUs"
 
-const App = () => {
 
+const App = () => {
   return (
     <>
       <Router>
