@@ -1,37 +1,27 @@
-import { createContext, useContext } from "react"
+import { createContext } from "react"
 import { useState } from "react"
 import { data, Props } from "../data/blogData";
 import posts from "../data/blogData";
+import { useUserStore } from "../store/useUserStore";
+import { PostProps } from "../server/AuthCheck";
 
 interface ContextProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void
-  posts: Props[];
   data: Props[];
-  user: User | null;
-  setUser: (user: User) => void;
-  clearUser: () => void;
   search: string;
   setSearch: (search: string) => void
   filteredSearch: Props[] | null;
   filteredPost: Props[];
 }
 
-interface User {
-  id: string | number;
-  Name: string;
-  Email: string;
-}
+
 
 const initialValue: ContextProps = {
   isOpen: false,
   setIsOpen: () => null,
-  posts: posts,
   data: data,
-  user: null,
-  setUser: () => null,
   setSearch: () => null,
-  clearUser: () => null,
   search: "",
   filteredSearch: data,
   filteredPost: posts,
@@ -45,36 +35,17 @@ interface ProviderProps {
 const UseProvider = ({ children }: ProviderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
-  const [user, setUser] = useState<User | null>(null)
+  const posts = useUserStore((state) => state.posts)
+  const dataValue = [ ...posts as PostProps[],...data ]
 
-  const clearUser = () => {
-    setUser(null)
-    localStorage.removeItem('token');
-  }
-
-
-  const filteredPost: Props[] = posts.filter(
-    (post) =>
-      post.title.toLowerCase().includes(search.toLowerCase()) ||
-      post.details.toLowerCase().includes(search.toLowerCase()) ||
-      post.category.toLowerCase().includes(search.toLowerCase())
-  )
-
+  
 
 
   return (
-    <context.Provider value={{ isOpen, setIsOpen, posts, data, user, setUser, clearUser, search, setSearch, filteredPost, filteredSearch: data }}>
+    <context.Provider value={{ isOpen, setIsOpen, data, search, setSearch, filteredPost : dataValue, filteredSearch: data }}>
       {children}
     </context.Provider>
   )
 }
 
 export default UseProvider
-
-const useValueInContext = () => {
-  const data = useContext(context)
-  if(!data){
-    throw new Error("No data found in the context. Ensure the provider is wrapping your component.");
-  }
-  return data
-}

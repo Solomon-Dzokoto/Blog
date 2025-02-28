@@ -1,10 +1,9 @@
 import { Navigate, Outlet, useLocation, } from "react-router-dom"
-import useContextValue from '../hooks/useContextValue'
 import Redirect from "../Pages/Redirect"
-
+import { useUserStore } from "../store/useUserStore"
 
 const RequiredUser = () => {
-    const { user } = useContextValue();
+    const user  = useUserStore(state=>state.user);
     const location = useLocation()
 
     if (!user) {

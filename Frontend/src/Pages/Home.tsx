@@ -2,20 +2,12 @@ import image from '../assets/home-removebg-preview.png';
 import logo from '../assets/logo.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { categoryPage } from '../data/blogData'
-import { useEffect } from 'react';
 import { useUserStore } from '../store/useUserStore';
 
 const Home = () => {
   const navigate = useNavigate()
 
  const user = useUserStore((state)=>state.user)
-  useEffect(()=>{
-    if(user){
-      navigate('/user-home')
-    }else{
-      navigate('/')
-    }
-  },[user])
 
   const read = () => {
     if (!user) {

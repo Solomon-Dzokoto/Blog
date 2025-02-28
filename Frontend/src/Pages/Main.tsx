@@ -23,7 +23,7 @@ const Main = () => {
 
 
   return (
-    <main >
+    <main className='flex-1'>
       <section id='Home' className="py-8 px-[clamp(1rem,5vw,6rem)]" >
         <article className="bg-gray-200 text-center p-8 rounded-3xl">
           <h2 style={{ fontSize: "clamp(1rem,3vw,1.5rem)" }} className=" mb-8  text-[1.5rem] text-gray-600" >WELCOME TO MOOD</h2>

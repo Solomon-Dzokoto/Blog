@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import logo from '../../assets/logo.png'
 import { PiNotePencilThin } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
@@ -9,16 +9,22 @@ import { useUserStore } from "../../store/useUserStore";
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
-  const { id } = useParams();
   const {  search,setSearch } = useContextValue()
   const user = useUserStore((state)=>state.user)
+  const removeUser = useUserStore((state)=>state.removeUser)
   const navigate = useNavigate();
 
   const toSignUp = () => navigate('/signup')
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)
-
-
+   
+  const read = () => {
+    if (!user) {
+      navigate('/signup')
+    } else {
+      navigate('/user-home')
+    }
+  }
 
   const colors = [
     "bg-red-500",
@@ -35,14 +41,12 @@ const Header = () => {
 
   return (
     <header id="Top" style={{ paddingInline: "clamp(1rem,5vw,6rem)" }} className='flex justify-between  items-center border-b-[.1rem] border-[#1e5d6c] '>
-      <Link to='/user-home'>
-        <span className='py-2 inline-block'>
+        <span  onClick={read} className='py-2 inline-block'>
           <img
             className='w-[4rem] h-[3rem]'
             src={logo}
             alt="logo" />
         </span>
-      </Link>
       <div className="relative ">
         <input
           className={` outline-[#206173] border py-2 rounded-xl px-8`}
@@ -81,10 +85,9 @@ const Header = () => {
             </div>
           )
         }
-
         {
           user && (
-            <Link to={`/create/${id}`}>
+            <Link to={`/create/${user?.id}`}>
               <p className="flex items-center gap-2 text-gray-500">
                 <span className="text-[1.5rem]"><PiNotePencilThin /></span>
                 Write
@@ -94,7 +97,7 @@ const Header = () => {
         }
         <span className={` ${user ? `${randomColor} text-white font-semibold  px-4` : "bg-gray-100 "} p-2 rounded-full`}>
           {
-            user ? <span>{user && (user?.name as string).substring(0, 1).toUpperCase()} </span> : <span className="cursor-pointer" onClick={toSignUp}><CiUser /></span>}
+            user ? <span onDoubleClick={removeUser}>{user && (user?.name as string).substring(0, 1).toUpperCase()} </span> : <span className="cursor-pointer" onClick={toSignUp}><CiUser /></span>}
         </span>
       </div>
 

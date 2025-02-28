@@ -1,13 +1,16 @@
 "use server";
+import { v4 as uuid } from "uuid";
+import { format } from "date-fns"
 
 
 export interface User {
+  id?: string | number
   name?: string;
   email: string;
 }
 export type Output = {
-  message: string;
-  user: User | null;
+  message: string | null;
+  user?: User | null;
   status: number;
   error: string | null;
 };
@@ -25,7 +28,7 @@ export const onSubmit = async (
       return {
         error: "All fields are required",
         user: null,
-        message: "All fields are resquired",
+        message: "All fields are required",
         status: 404,
       };
     }
@@ -37,8 +40,7 @@ export const onSubmit = async (
         "Password must be at least 8 characters long and contain at least "
       );
       return {
-        error:
-          "Password must include a digit, a lowercase and a uppercase and minimum of 6 length",
+        error: "Password must include a digit, a lowercase and a uppercase and minimum of 6 length",
         status: 404,
         user: null,
         message: "",
@@ -49,7 +51,7 @@ export const onSubmit = async (
     console.log("User created");
     return {
       message: "User created successfully",
-      user: { name, email },
+      user: { id: uuid(), name, email },
       error: null,
       status: 201,
     };
@@ -114,3 +116,49 @@ export const onLogin = async (
     };
   }
 };
+
+export interface PostProps {
+  id: string | number;
+  title: string;
+  details: string;
+  category: string;
+  path? : string;
+  date?: Date | string;
+
+}
+
+export interface PostReturnProps extends Output {
+  data: PostProps | null;
+}
+
+export const onPost = async (prev: PostProps, formData: FormData) : Promise<PostReturnProps> => {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const title = formData.get("title") as string;
+    const details = formData.get("details") as string;
+    const category = formData.get("category") as string;
+    if (!title.trim() || !details.trim() || !category) {
+      return {
+        error: "All fields are required",
+        data: null,
+        message: null,
+        status: 404,
+      };
+    }
+    console.log("Post created");
+    return {
+      message: "Post created successfully",
+      data: { title, details, category,id:uuid(),date :format(new Date(2024, 2, 2),"yyyy-MM-dd") as string },
+      error: null,
+      status: 201,
+    };
+  } catch (error) {
+    console.log("Error saving data:", error)
+    return {
+      error: error instanceof Error ? error.message : String(error),
+      data: null,
+      message: "All fields are required",
+      status: 404,
+    }
+  }
+}

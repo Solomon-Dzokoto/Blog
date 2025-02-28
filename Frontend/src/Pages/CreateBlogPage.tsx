@@ -1,185 +1,130 @@
-import { FaImage } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
-import { BsPlusLg } from "react-icons/bs";
-import { useState } from "react";
-import useFileUpload from "../hooks/useFecthFile";
-import { v4 as uuid } from "uuid"
-import ContextValue from "../hooks/useContextValue";
+"use client"
+import { RiLoader2Fill } from "react-icons/ri";
+import { AiOutlineCloudDownload } from "react-icons/ai";
+import { useCallback, useEffect, useState, useActionState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Props } from "../data/blogData";
+import { useDropzone } from "react-dropzone"
+import axios from "axios"
+import { onPost, type PostProps,type PostReturnProps } from "../server/AuthCheck"
+import { useUserStore } from "../store/useUserStore";
 
-interface CredentialProps {
-  title: string;
-  details: string;
-  category: string;
-  image: File | null;
-  video: File | null;
-}
+
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
+const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET
 
 const CreateBlogPage = () => {
-  const [showFileOptions, setShowFileOptions] = useState<boolean>(false);
-  const [credential, setCredential] = useState<CredentialProps>({
-    title: "",
-    details: "",
-    category: "Others",
-    image: null,
-    video: null,
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const { filePreview, fileType, handleFileChange, resetFile } = useFileUpload();
-  const { filteredPost, data } = ContextValue()
-  const navigate = useNavigate()
-
-  const handleOnchange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setCredential((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-
-
+  const handleOnPost = async (state: PostReturnProps, formData: FormData) => {
+    return await onPost(state?.data as PostProps , formData);
   };
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
+  const [state, action, isPending] = useActionState(handleOnPost, {} as PostReturnProps)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  const [output, setOutput] = useState<{ message: string | null; error: string | null }>({
+    message: null,
+    error: null,
+  })
+  const addPost = useUserStore((state) => state.addPost)
 
-  const addSubmitData = (e: React.FormEvent<HTMLFormElement>) => {
 
-    e.preventDefault();
+  useEffect(() => {
+    if (state?.data) {
+      console.log()
+      state.data = { ...state.data, path : fileUrl as string }
+      console.log(state.data)
+      setOutput({ message: state.message, error: state?.error })
+      addPost(state.data)
+      navigate('/user-home')
+    }else{
+      console.error()
+    }},[state])
 
-    const { title, details, category, image, video } = credential;
 
-    console.log(image?.name)
-    if (!title || !details) {
-      alert("Both title and details are required.");
-      return;
-    }
+  useEffect(() => {
+   console.log(state)
+  }, [state])
 
-    setLoading(true);
-    setError("");
-    setSuccess("")
-
-    try {
-      const id = uuid()
-      const newPost : Props = {
-        id,
-        title,
-        details,
-        category,
-        path:image?.name || video?.name,
-        date: new Date().toDateString(),
+  const onSubmit = () => {
+    try{
+      if(!state){
+        throw new Error("No data submitted")
       }
-      console.log(newPost)
-      filteredPost.unshift(newPost)
-      data.unshift(newPost)
-      setSuccess("Your Blog has been created successfully!");
-      setCredential({
-        title: "",
-        details: "",
-        category: "Others",
-        image: null,
-        video: null,
-      })
-      alert("Your Blog has been created successfully!")
-      resetFile();
-      navigate(`/user-home`)
-    } catch (error) {
-      console.error(`Error: ${error}`)
+      navigate('/user-home')
+    }catch(error){
+      console.error("Error saving data: ", error)
     }
-    finally {
-      setLoading(false)
-    }
-
   }
 
 
 
-  const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+    setLoading(true)
+    const file = acceptedFiles[0];
+    try {
+      if (file.size > 10 * 1024 * 1024) {
+        alert("File size should be less than 10MB.")
+        return;
+      }
+      if (!file) {
+        console.error("No file selected.")
+        throw new Error("No file selected.")
+      }
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", UPLOAD_PRESET)
 
-    if (file.type.startsWith("image/")) {
-      setCredential((prev) => ({
-        ...prev,
-        image: file,
-        video: null,
-      }));
-    } else if (file.type.startsWith("video/")) {
-      setCredential((prev) => ({
-        ...prev,
-        video: file,
-        image: null,
-      }));
-    } else {
-      alert("Only image or video files are allowed.");
+      const { data } = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`, formData)
+
+      setFileUrl(data?.secure_url as string)
+      console.log("Url", data?.secure_url)
+      setLoading(false)
+      return data?.secure_url;
+    } catch (error) {
+      console.log("Error could not achieve file:", error)
+      setLoading(false)
+      throw error
     }
-  };
+  }, [])
+
+
+  const { getInputProps, getRootProps } = useDropzone({ onDrop })
 
   return (
     <main className="px-[clamp(1rem,6vw,4rem)] py-12 min-h-screen">
-      <form onSubmit={addSubmitData} className="grid">
+      <form action={action} className="grid">
         <div className="relative">
+          {fileUrl ? (
+            <img loading="lazy" src={fileUrl as string} alt="Preview" className="h-[50vh] w-full block rounded-md" />
+          ) : null}
 
-          {filePreview && (
-            <span
-              onClick={() => {
-                resetFile();
-                setCredential((prev) => ({ ...prev, image: null, video: null }));
-              }}
-              className="absolute top-2 left-2 text-red-600 border border-red-600 rounded-full bg-white cursor-pointer"
-            >
-              <IoMdClose />
-            </span>
-          )}
+          <div className="bg-[#041E23] h-[8rem] sm:h-[10rem] md:h-[10rem] relative">
+            <div {...getRootProps()} role="button" tabIndex={0} aria-label="Upload profile photo. Click or drag and drop an image file here." className="border-2 absolute w-[80%] sm:w-[60%] md:w-[15rem] border-[#24A0B5] h-fit min-h-[10rem] md:h-[12rem] p-4 bg-[#249fb54b]  rounded-[2rem] -top-5 left-1/2 -translate-x-1/2 text-center cursor-pointer">
+              <input type="file" {...getInputProps()} />
+              {fileUrl ? (
+                <img src={fileUrl} alt="Uploaded" className="w-full h-32 sm:h-36 md:h-40 object-cover rounded-md" />
+              ) : (
+                <div className="text-center p-4">
+                  <span className="inline-block mx-auto mb-2">
+                    <AiOutlineCloudDownload size={24} className="mx-auto" />
+                  </span>
+                  <p className="text-sm md:text-base">
+                    {loading ?
+                      <span className="animate-spin inline-block"><RiLoader2Fill /></span> : (<>
+                        <p> Drag & drop or click to upload</p>
+                        <small className="text-red-500 absolute left-8 bottom-2 text-[.4rem] ">image of [jpg,png,jpeg,webp] and max size of 5MB</small>
+                      </>)
 
-          {filePreview && fileType === "image" && (
-            <img src={filePreview} alt="Preview" className="h-[50vh] block rounded-md" />
-          )}
-          {filePreview && fileType === "video" && (
-            <video controls className="w-96 h-auto">
-              <source src={filePreview} type="video/mp4" />
-            </video>
-          )}
-
-          {!filePreview && showFileOptions && (
-            <div className="flex absolute transition-all left-20 ml-8 gap-4">
-              <label
-                htmlFor="file"
-                className="p-2 cursor-pointer text-[#206173] rounded-full border border-[#206173]"
-              >
-                <FaImage />
-                <input
-                  type="file"
-                  id="file"
-                  accept="image/*,video/*"
-                  name={credential.image ? "image" : "video"}
-                  onChange={(e) => {
-                    handleFileChange(e);
-                    fileChange(e);
-                  }}
-                  className="hidden"
-                />
-              </label>
+                    }
+                  </p>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
 
-        {/* Toggle File Upload Options */}
-        <span
-          onClick={() => setShowFileOptions((prev) => !prev)}
-          className="inline-block w-fit cursor-pointer p-2 rounded-full border border-black font-thin"
-        >
-          {!showFileOptions ? <BsPlusLg /> : <IoMdClose />}
-        </span>
-
-        {/* Form Fields */}
         <label htmlFor="title">
           <textarea
             placeholder="Title"
-            onChange={handleOnchange}
-            value={credential.title}
             className="w-full resize-none p-4 caret-inherit placeholder:text-[1.5rem] outline-none"
             name="title"
             id="title"
@@ -189,8 +134,6 @@ const CreateBlogPage = () => {
         <label htmlFor="details">
           <textarea
             placeholder="Tell Your Story"
-            onChange={handleOnchange}
-            value={credential.details}
             className="w-full p-4 min-h-[40vh] outline-none"
             name="details"
             id="details"
@@ -201,8 +144,6 @@ const CreateBlogPage = () => {
           Category
           <select
             name="category"
-            onChange={handleOnchange}
-            value={credential.category}
             className="bg-[#1e5d6c] text-white px-4 py-2 rounded-md"
           >
             <option value="Technology">Technology</option>
@@ -210,22 +151,26 @@ const CreateBlogPage = () => {
             <option value="Travel">Travel</option>
             <option value="Entertainment">Entertainment</option>
             <option value="Business">Business</option>
-            <option value="Others">Others</option>
+            <option defaultValue ="Others">Others</option>
           </select>
         </label>
 
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={loading}
+          onSubmit={onSubmit}
+          disabled={isPending}
           className="bg-green-500 hover:bg-green-400 w-fit text-white px-8 py-2 rounded-md mt-8 justify-self-end"
         >
-          {loading ? "Loading..." : "Publish"}
+          {isPending ?( <span ><RiLoader2Fill className="animate-spin inline-block mr-2" />Posting...</span> ): "Publish"}
         </button>
 
-        {/* Feedback */}
-        {error && <p className="text-red-600 text-lg font-bold">{error}</p>}
-        {success && <p className="text-green-600 text-lg font-bold">{success}</p>}
+        {output && output?.error && output.error !== null
+        ? <p className="text-red-600 text-lg font-bold">{output?.error}</p>
+        :output?.message && output.message !== null
+        ?  <p className="text-green-600 text-lg font-bold">{output?.message}</p>
+        : null
+}
       </form>
     </main>
   );
