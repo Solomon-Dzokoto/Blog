@@ -29,9 +29,9 @@ const Home = () => {
           <Link to='/signin'>
             <button className='bg-[#206173] text-white py-2 px-4 rounded-[2rem] hover:bg-[#032b13] transition'>Sign in</button>
           </Link>
-          <Link to='/signup'>
-            <button className='bg-[#206173] text-white py-2 px-4 rounded-[2rem] hover:bg-[#032b13] transition'>Get started</button>
-          </Link>
+     
+            <button onClick={read} className='bg-[#206173] text-white py-2 px-4 rounded-[2rem] hover:bg-[#032b13] transition'>Get started</button>
+      
         </nav>
       </header>
       <main className='grid grid-cols-1 md:grid-cols-2 min-h-[80vh] py-4'>

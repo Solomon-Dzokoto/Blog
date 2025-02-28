@@ -37,13 +37,9 @@ const CreateBlogPage = () => {
       addPost(state.data)
       navigate('/user-home')
     }else{
-      console.error()
-    }},[state,user])
-
-
-  useEffect(() => {
-   console.log(state)
-  }, [state])
+      console.error("No data submitted")
+    }
+  },[state,user])
 
   const onSubmit = () => {
     try{

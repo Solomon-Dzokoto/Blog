@@ -28,21 +28,8 @@ const Header = () => {
     }
   }
 
-  // const colors = [
-  //   "bg-red-500",
-  //   "bg-green-500",
-  //   "bg-blue-500",
-  //   "bg-yellow-500",
-  //   "bg-indigo-500",
-  //   "bg-purple-500",
-  //   "bg-pink-500",
-  // ]
-
-  // const randomColor = colors[Math.floor(Math.random() * colors.length)]
-
-
   return (
-    <header className="bg-[#1e5d6c] shadow-lg p-4 flex justify-between items-center">
+    <header className=" shadow-lg p-4 flex justify-between items-center">
       <span onClick={read} className='cursor-pointer'>
         <img
           className='w-[4rem] h-[3rem]'
@@ -91,7 +78,7 @@ const Header = () => {
             </p>
           </Link>
         )}
-        <span className={`p-4 width-10 h-10 rounded-full flex justify-center items-center`}>
+        <span className={`p-4 w-25 h-15 rounded-full flex justify-center items-center`}>
           {user ? <img src={userLogo} className="w-full h-full rounded-full object-fit" alt="your logo" /> : <span className="cursor-pointer" onClick={toSignUp}><CiUser /></span>}
         </span>
         {user && (

@@ -6,10 +6,10 @@ import { motion } from "framer-motion"
 const Post = () => {
   const {id} = useParams()
   const { filteredPost } = useContextValue();
-  console.dir(id)
+
   const post = filteredPost.find(post=>post.id == id?.toString())
   if (!post) {
-    return <h1 className="min-h-screen">Post not found</h1>;
+    return <h1 className="min-h-screen text-2xl grid place-content-center">Post not found</h1>;
   }
   const {title,path,details,date,user,category} = post;
 

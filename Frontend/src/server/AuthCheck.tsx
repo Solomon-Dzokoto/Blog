@@ -7,6 +7,7 @@ export interface User {
   id?: string | number
   name?: string;
   email: string;
+  password?:string
 }
 export type Output = {
   message: string | null;
@@ -22,6 +23,7 @@ export const onSubmit = async (
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+
   try {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     if (!name || !email || !password) {
@@ -51,7 +53,7 @@ export const onSubmit = async (
     console.log("User created");
     return {
       message: "User created successfully",
-      user: { id: uuid(), name, email },
+      user: { id: uuid(), name, email, password },
       error: null,
       status: 201,
     };
@@ -71,14 +73,15 @@ export const onLogin = async (
 ): Promise<Output> => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  console.log("Password:",password,"Email:",email)
 
   try {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    if (!email || !password) {
+    if (!email.trim() || !password.trim()) {
       return {
         error: "All fields are required",
         user: null,
-        message: "All fields are resquired",
+        message: "",
         status: 404,
       };
     }

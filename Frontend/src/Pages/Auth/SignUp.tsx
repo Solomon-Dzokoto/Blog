@@ -7,22 +7,38 @@ import { useUserStore } from "../../store/useUserStore";
 import type { Output } from "../../server/AuthCheck";
 
 const Signup = () => {
-  const user = useUserStore((state) => state.user);
+  const userKeeper = useUserStore((state) => state.userKeeper);
   const setUser = useUserStore((state) => state.setUser);
-  const [error,setError] =useState<string | null>(null)
+  const addUserKeeper = useUserStore((state) => state.addUserKeeper);
+
+
+
+  const [error, setError] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
   const handleSubmit = async (prevState: Output, formData: FormData) => {
     const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
     try {
-      if (email === user?.email) {
-        console.log("Email already exists");
-        throw new Error("Email already exists");
+        const checkedEmail =  userKeeper?.find(data=>data?.email === email) 
+        const checkedPassword =  userKeeper?.find(data=>data?.password === password) 
+      if (checkedEmail) {
+        setError("User already exists");
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        errorTimer()
+      }else if(!checkedPassword){
+        setError("Password does not match")
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        errorTimer()
       }
     } catch (error) {
       console.log(
         "Error",
         error instanceof Error ? error.message : "Unknown user"
       );
-      throw new Error(`User exist:${error} `);
+      setError(`User exist:${error} `);
+      await new Promise(resolve => setTimeout(resolve, 3000))
+      return
+
     }
 
     return await onSubmit(prevState, formData);
@@ -30,20 +46,50 @@ const Signup = () => {
   const [data, action, isPending] = useActionState(handleSubmit, {} as Output);
   const navigate = useNavigate();
 
+  const errorTimer = () => {
+    setTimeout(() => {
+      setError(null)
+      setMessage(null)
+    }, 3000);
+  }
+
   useEffect(() => {
-    if (data?.user) {
-      console.log("User created");
-      setUser(data.user);
-      navigate("/user-home");
-    }
-    if (data?.error) {
+
+    const checkOut = async () => {
+      if (data?.user) {
+        console.log("User created");
+        setUser(data.user);
+       addUserKeeper(data.user)
+        setMessage("User created successfully")
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        errorTimer()
+        navigate("/user-home");
+      }
+      if (data?.error) {
         setError(data?.error)
-      const timer = setTimeout(() => {
+        const timer = setTimeout(() => {
+          setError(null)
+        }, 3000);
+        return () => clearTimeout(timer);
+      } else {
         setError(null)
-      }, 3000);
-      return () => clearTimeout(timer);
+      }
+      if (data?.message) {
+        setMessage(data?.message)
+        const timer = setTimeout(() => {
+          setMessage(null)
+        }, 3000);
+        return () => clearTimeout(timer);
+      } else {
+        setMessage(null)
+      }
     }
+
+    checkOut()
+
   }, [data]);
+
+
 
   return (
     <div>
@@ -62,12 +108,17 @@ const Signup = () => {
                 {error}
               </div>
             )}
+            {message && (
+              <div className="text-green-600 text-center text-sm mb-2">
+                {error}
+              </div>
+            )}
             <div>
               <div>
                 <div className="capitalize text-xl mb-2 mt-2">
                   <label htmlFor="name">username</label>
                 </div>
-                <div className="border-2 relative">
+                <div className="border-2 border-[#1e5d6c] rounded-md relative">
                   <span className="absolute px-2 inset-y-0 left-0 flex items-center text-gray-400">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +136,7 @@ const Signup = () => {
                     </svg>
                   </span>
                   <input
-                    className="w-full placeholder:capitalize px-8 py-1.5 outline-blue-600"
+                    className="w-full placeholder:capitalize px-8 py-1.5 outline-[#1e5d6c]"
                     type="text"
                     id="Name"
                     name="name"
@@ -100,7 +151,7 @@ const Signup = () => {
                 <div className="capitalize text-xl mb-2 mt-3">
                   <label htmlFor="email">Email</label>
                 </div>
-                <div className="border-2 relative">
+                <div className="border-2 border-[#1e5d6c] rounded-md relative">
                   <span className="absolute px-2 inset-y-0 left-0 flex items-center text-gray-400">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +184,7 @@ const Signup = () => {
                 <div className="capitalize text-xl mb-2">
                   <label htmlFor="password">password</label>
                 </div>
-                <div className="border-2 relative">
+                <div className="border-2 border-[#1e5d6c] rounded-md relative">
                   <span className="absolute px-2 inset-y-0 left-0 flex items-center text-gray-400">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +226,7 @@ const Signup = () => {
                 <p>
                   already have an account?{" "}
                   <Link
-                    className="capitalize text-[#1e5d6c] hover:underline cursor-pointer"
+                    className="capitalize text-[#1e5d6c] text-sm hover:underline cursor-pointer"
                     to="/signin"
                   >
                     Sign In

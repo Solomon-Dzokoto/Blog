@@ -1,25 +1,65 @@
-import { useState,useActionState } from 'react';
+import { useState, useActionState, useEffect } from 'react';
 import { FaBackward } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom'
 import { onLogin } from '../../server/AuthCheck';
 import { useUserStore } from '../../store/useUserStore';
-import type {Output} from '../../server/AuthCheck'
+import type { Output } from '../../server/AuthCheck'
 
 
 const SignIn = () => {
-  const user = useUserStore((state) => state.user)
-  const handleLogin = async( prevState:Output ,formData: FormData) => {
+  const userKeeper = useUserStore((state) => state.userKeeper)
+  const setUser = useUserStore((state) => state.setUser)
+  const navigate = useNavigate()
+  const [error, setError] = useState<string | null>("")
+  const [message, setMessage] = useState<string | null>("")
+  const handleLogin = async (prevState: Output, formData: FormData) => {
     const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const checkedEmail =  userKeeper?.find(data=>data?.email === email) 
+    const checkedPassword =  userKeeper?.find(data=>data?.password === password) 
 
-    if (email !== user?.email) {
-      console.log("user does not exist")
-      throw new Error("User does not exist")
+    if (!checkedEmail) {
+      setError("User does not exist -- You can go to the sign up page to create an account")
+      await new Promise(resolve=>setTimeout(resolve, 3000))
+      errorTimer()
+      navigate("/signup")
     }
-   return await onLogin(prevState,formData)
-  }   
-  const [data,action,isPending]=useActionState(handleLogin,{} as Output)
+    if(!checkedPassword){
+      setError("Password is incorrect")
+      errorTimer()
+    }
+    return await onLogin(prevState, formData)
+  }
+  const [data, action, isPending] = useActionState(handleLogin, {} as Output)
 
 
+  const errorTimer = () => {
+    setTimeout(() => {
+      setError(null)
+      setMessage(null)
+    }, 3000);
+  }
+  useEffect(() => {
+    if (data?.user) {
+      console.log("User created");
+      setUser(data.user);
+      navigate("/user-home");
+    }
+    if (data?.error) {
+      setError(data?.error)
+      const timer = setTimeout(() => {
+        setError(null)
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+    if (data?.message) {
+      setMessage(data?.message)
+      const timer = setTimeout(() => {
+        setMessage(null)
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [data]);
 
   return (
     <div className="h-screen flex items-center justify-center p-4 mt-[25px] animate__animated animate__fadeInBottomLeft overflow-hidden">
@@ -32,9 +72,14 @@ const SignIn = () => {
             <h3>welcome back!</h3>
           </div>
 
-          {data?.error && (
+          {error && (
             <div className="text-red-600 text-center mb-4">
-              <p>{data?.error}</p>
+              <p>{error}</p>
+            </div>
+          )}
+          {message && (
+            <div className="text-green-600 text-center mb-4">
+              <p>{message}</p>
             </div>
           )}
 
@@ -43,7 +88,7 @@ const SignIn = () => {
               <div className="capitalize text-xl mb-2">
                 <label htmlFor="email">Email</label>
               </div>
-              <div className="border-2 relative">
+              <div className="border-2 border-[#1e5d6c] rounded-md relative">
                 <span className="absolute px-2 inset-y-0 left-0 flex items-center text-gray-400">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -65,8 +110,8 @@ const SignIn = () => {
                   type="email"
                   name="email"
                   id="Email"
-                  autoComplete="off"         
-                  placeholder="example@company.com"      
+                  autoComplete="off"
+                  placeholder="example@company.com"
                   required
                   minLength={5}
                 />
@@ -74,9 +119,9 @@ const SignIn = () => {
             </div>
             <div className="mt-4">
               <div className="capitalize text-xl mb-2">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">password</label>
               </div>
-              <div className="border-2 relative">
+              <div className="border-2 border-[#1e5d6c] rounded-md relative">
                 <span className="absolute px-2 inset-y-0 left-0 flex items-center text-gray-400">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -94,11 +139,11 @@ const SignIn = () => {
                   </svg>
                 </span>
                 <input
-                  className="w-full  px-8 py-1.5 outline-[#1e5d6c]"
+                  className="w-full placeholder:capitalize px-8 py-1.5 outline-[#1e5d6c]"
                   type="password"
-                  name="Password"
-                  id="Password" 
-                  placeholder="enter Password"
+                  id="Password"
+                  name="password"
+                  placeholder="enter password"
                   required
                   autoComplete="off"
                   minLength={5}
@@ -107,7 +152,7 @@ const SignIn = () => {
             </div>
             <br />
             <div>
-              <button className="bg-[#1e5d6c] text-[.9rem] text-xl text-white font-medium uppercase p-2 rounded-lg w-full opacity-90 hover:opacity-100" disabled={loading}>
+              <button className="bg-[#1e5d6c] text-[.9rem] text-xl text-white font-medium uppercase p-2 rounded-lg w-full opacity-90 hover:opacity-100" disabled={isPending}>
                 {isPending ? 'Loading..' : 'Login'}
               </button>
             </div>
