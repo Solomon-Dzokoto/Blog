@@ -37,7 +37,6 @@ const Main = () => {
     return acc
   }, {} as Record<string, isNotDesc[]>)
 
-  console.log(groupedCat)
 
   return (
     <main className='flex-1'>

@@ -21,7 +21,7 @@ const Signup = () => {
       const checkedEmail = userKeeper?.find(data => data?.email === email)
       if (checkedEmail) {
         setError("User already exists");
-        await new Promise(resolve => setTimeout(resolve, 3000))
+        await new Promise(resolve => setTimeout(resolve, 8000))
         errorTimer()
         return;
       }
@@ -31,11 +31,11 @@ const Signup = () => {
         error instanceof Error ? error.message : "Unknown user"
       );
       setError(`User exist:${error} `);
-      await new Promise(resolve => setTimeout(resolve, 3000))
+      await new Promise(resolve => setTimeout(resolve, 8000))
       return
-
     }
-
+    setMessage("Please wait while we process your request...")
+    await new Promise(resolve => setTimeout(resolve, 1000))
     return await onSubmit(prevState, formData);
   };
   const [data, action, isPending] = useActionState(handleSubmit, {} as Output);

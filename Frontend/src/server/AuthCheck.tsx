@@ -101,11 +101,9 @@ export const onLogin = async (
       };
     }
 
-
-    console.log("User created");
     return {
       message: "User created successfully",
-      user: { email },
+      user: { email , password },
       error: null,
       status: 201,
     };
