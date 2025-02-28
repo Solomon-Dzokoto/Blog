@@ -124,7 +124,7 @@ export interface PostProps {
   category: string;
   path? : string;
   date?: Date | string;
-
+  user? : string;
 }
 
 export interface PostReturnProps extends Output {

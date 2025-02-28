@@ -11,6 +11,7 @@ import Post from "./Pages/Post"
 import RequiredUser from "./Components/RequiredUser"
 import ContactUs from "./Pages/ContactPage"
 import AboutUs from "./Pages/AboutUs"
+import NotFound from "./Pages/NotFound"
 
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </UseProvider>
       </Router>

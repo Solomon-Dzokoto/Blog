@@ -1,18 +1,34 @@
 import Card from '../Components/ui/Card.tsx'
 import { Card2 } from '../Components/ui/Card.tsx'
-import {  data3, data4, data2, isNotDesc } from '../data/blogData.tsx'
-import { Props } from '../data/blogData.tsx'
+import { data3, data4, data2, isNotDesc } from '../data/blogData.tsx'
 import { motion } from 'framer-motion'
 import video from '../assets/iPhone 16 and iPhone 16 Plus - Apple-01.mp4'
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { Link } from 'react-router-dom'
 import useContextValue from '../hooks/useContextValue.tsx'
+import { FaMarker } from 'react-icons/fa'
+import { AiFillCloseCircle } from 'react-icons/ai'
+import { useState,useEffect } from 'react'
+
 
 const Main = () => {
-  const {filteredPost} = useContextValue()
+  const [loading, setLoading] = useState(false)
+  const [Message, setMessage] = useState<string | null>("")
+  const [error, setError] = useState<string | null>("")
+  const { filteredPost } = useContextValue()
 
   const { title, user, details, category } = data4
 
+  useEffect(()=> {
+    if(error|| Message){
+      const timer = setTimeout(()=>{
+        setLoading(false)
+        setMessage(null)
+        setError(null)
+      },3000)
+      return ()=> clearTimeout(timer)
+    }
+  },[error,Message])
 
 
   const groupedCat: Record<string, isNotDesc[]> = data2.reduce((acc, item) => {
@@ -21,6 +37,7 @@ const Main = () => {
     return acc
   }, {} as Record<string, isNotDesc[]>)
 
+  console.log(groupedCat)
 
   return (
     <main className='flex-1'>
@@ -53,13 +70,13 @@ const Main = () => {
 
         <ul className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
           {
-            filteredPost.slice(0, 3).map((item: Props) => (
+            filteredPost.slice(0, 3).map((item) => (
               <Link to={`/post/${item.id}`} className='flex flex-col justify-between' key={item.id}>
                 <Card
                   id={item.id}
                   path={item.path}
                   title={item.title}
-                  date={item.date}
+                  date={item.date as string}
                   details={item.details}
                   category={item.category}
                   user={item.user}
@@ -98,7 +115,6 @@ const Main = () => {
                 {
                   groupedCat[category].map((item) => (
                     <Link to={`/post/${item.id}`} key={item.id}>
-
                       <article className="grid  min-h-[50vh] gap-2">
                         <img className="w-full min-w-[16rem] h-[16rem] rounded-3xl" src={item.path} alt={item.title || 'Default name'} />
                         <span className="flex text-gray-500 items-center gap-2">
@@ -158,13 +174,13 @@ const Main = () => {
               {
                 filteredPost.slice(1, 2).map((item) => {
                   return (
-                     
+
                     <Link to={`/post/${item.id}`} key={item.id} >
                       <article className="grid md:w-[15rem] md:min-h-[10vh] gap-1">
                         <img className="md:size-[15rem] rounded-3xl" src={item.path} alt={title || 'Default name'} />
                         <span className="flex text-gray-500 items-center gap-2">
                           <p>{user}</p>
-                          <small>{item.date}</small>
+                          <small>{item.date as string}</small>
                         </span>
                         <h2 className="text-[1.5rem] font-semibold">{item.title.length >= 40 ? `${item.title.substring(0, 40)}...` : item.title}</h2>
                         <p className="flex-grow">
@@ -190,7 +206,7 @@ const Main = () => {
                       <div className="absolute bottom-4 left-4 text-white">
                         <p className="text-sm">{item.user} </p>
                         <h3 className="text-xl font-bold">{item.title}</h3>
-                        <small>{item.category} · {item.date}</small>
+                        <small>{item.category} · {item.date as string}</small>
                       </div>
                     </article>
                   </Link>
@@ -200,13 +216,13 @@ const Main = () => {
             </li>
             <li>
               {
-                filteredPost.slice(6,8).map((item) => (
+                filteredPost.slice(6, 8).map((item) => (
                   <Link to={`/post/${item.id}`} key={item.id} >
                     <article className="grid w-full md:w-[20rem] md:min-h-[10vh] gap-3">
                       <img className="md:w-[20rem] w-full md:h-[8rem] rounded-3xl" src={item.path} alt={title || 'Default name'} />
                       <span className="flex text-gray-500 items-center gap-2">
                         <p>{user}</p>
-                        <small>{item.date}</small>
+                        <small>{item.date as string}</small>
                       </span>
                       <h2 className="text-[1rem] font-semibold">{item.title.length >= 60 ? `${item.title.substring(0, 80)}...` : item.title}</h2>
                       <small className="text-red-500">{category}</small>
@@ -214,7 +230,7 @@ const Main = () => {
                   </Link>
 
                 ))
-              }
+              }No prompt was provided.
             </li>
 
           </ul>
@@ -229,7 +245,34 @@ const Main = () => {
               Get the news in front line by <span className='text-red-600'>subscribe</span>  ✍🏻 our latest updates
             </h2>
           </div>
-          <form>
+          {
+          error
+          ? <p className='fixed p-8 font-semibold top-24 left-1/2 -translate-1/2 text-red-500 border-4 border-red-600 rounded-2xl bg-white flex gap-2 items-center '>{error} <AiFillCloseCircle /></p>
+          :Message
+          ? <p className='fixed p-8 font-semibold top-24 left-1/2 -translate-1/2 border-4 border-green-700 T rounded-2xl bg-white flex gap-2 items-center  '>{Message} <FaMarker className="animate-bounce" /></p>
+          : null 
+          }
+          <form onSubmit={async (e) => {
+            e.preventDefault();
+            setLoading(true)
+            try {
+              const email = e.currentTarget?.email;
+              await new Promise(resolve => setTimeout(resolve, 2000))
+              if (!email.value.trim()) {
+                setError("Fill in your email")
+                return;
+              } else {
+                email.value = ""
+              }
+              setMessage("Email sent successfully")
+              setLoading(false)
+            } catch (err) {
+              console.log(err)
+              setError(err instanceof Error ? err.message : "Error")
+              setLoading(false)
+            }
+
+          }}>
             <input
               type="email"
               name="email"
@@ -238,11 +281,13 @@ const Main = () => {
               placeholder='Your email'
               required
             />
-            <input
+            <button
               type="submit"
               className='border cursor-pointer hover:bg-red-500 bg-red-600 transition-all py-2 rounded-[.5rem] text-white px-8'
               value="Subscribe"
-            />
+            >
+              {loading ? "Submitting..." : "Subscribe"}
+            </button>
           </form>
         </div>
       </section>

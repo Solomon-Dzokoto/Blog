@@ -25,19 +25,20 @@ const CreateBlogPage = () => {
     error: null,
   })
   const addPost = useUserStore((state) => state.addPost)
+  const user = useUserStore((state) => state.user)
+
 
 
   useEffect(() => {
-    if (state?.data) {
-      console.log()
-      state.data = { ...state.data, path : fileUrl as string }
+    if (state?.data && user) {
+      state.data = { ...state.data, path : fileUrl as string, user:user?.name }
       console.log(state.data)
       setOutput({ message: state.message, error: state?.error })
       addPost(state.data)
       navigate('/user-home')
     }else{
       console.error()
-    }},[state])
+    }},[state,user])
 
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { createContext } from "react"
 import { useState } from "react"
 import { data, Props } from "../data/blogData";
-import posts from "../data/blogData";
+import { posts as defaultPosts } from "../data/blogData";
 import { useUserStore } from "../store/useUserStore";
 import { PostProps } from "../server/AuthCheck";
 
@@ -12,7 +12,7 @@ interface ContextProps {
   search: string;
   setSearch: (search: string) => void
   filteredSearch: Props[] | null;
-  filteredPost: Props[];
+  filteredPost: Props[] | PostProps[];
 }
 
 
@@ -24,7 +24,7 @@ const initialValue: ContextProps = {
   setSearch: () => null,
   search: "",
   filteredSearch: data,
-  filteredPost: posts,
+  filteredPost: defaultPosts,
 }
 export const context = createContext<ContextProps>(initialValue)
 
@@ -36,13 +36,15 @@ const UseProvider = ({ children }: ProviderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
   const posts = useUserStore((state) => state.posts)
-  const dataValue = [ ...posts as PostProps[],...data ]
 
-  
+  const additionalPosts = posts ? [...posts as PostProps[], ...defaultPosts] : defaultPosts
+
+  console.log("dataValue", additionalPosts)
+  console.log("data", data)
 
 
   return (
-    <context.Provider value={{ isOpen, setIsOpen, data, search, setSearch, filteredPost : dataValue, filteredSearch: data }}>
+    <context.Provider value={{ isOpen, setIsOpen, data, search, setSearch, filteredPost:additionalPosts , filteredSearch: data }}>
       {children}
     </context.Provider>
   )

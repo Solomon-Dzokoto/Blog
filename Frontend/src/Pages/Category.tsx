@@ -4,6 +4,7 @@ import { Card2 } from "../Components/ui/Card";
 import { data, data4 } from "../data/blogData";
 import video from '../assets/iPhone 16 and iPhone 16 Plus - Apple-01.mp4'
 import useContextValue from "../hooks/useContextValue"
+import { motion } from "framer-motion";
 
 const Category = () => {
     const { id } = useParams();
@@ -95,19 +96,21 @@ const Category = () => {
         <main className="min-h-screen py-[4rem] w-[90%] md:w-[80%]  lg:w-[70%] mx-auto" >
             <h2 className="text-[2rem] font-extrabold text-center mb-8 text-green-800 ">{category[0].category}</h2>
             <ul className="grid gap-4 grid-cols-2">
-
-                {
-                    category.map((post) => {
-                        const { id } = post
-                        return (
+                {category.map((post, index) => {
+                    const { id } = post;
+                    return (
+                        <motion.li
+                            key={id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                        >
                             <Link to={`/post/${id}`}>
-                                <li key={id}>
-                                    <Card  {...post} />
-                                </li>
+                                <Card  {...{ ...post, date: post.date?.toString() }} />
                             </Link>
-                        )
-                    })
-                }
+                        </motion.li>
+                    );
+                })}
             </ul>
         </main>
     )

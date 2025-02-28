@@ -3,6 +3,7 @@ import logo from '../assets/logo.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { categoryPage } from '../data/blogData'
 import { useUserStore } from '../store/useUserStore';
+import { motion } from 'framer-motion';
 
 const Home = () => {
   const navigate = useNavigate()
@@ -19,71 +20,49 @@ const Home = () => {
 
   return (
     <div className='min-h-screen'>
-      <header style={{ paddingInline: "clamp(1rem,5vw,6rem)" }} className='flex  items-center border-b-[.1rem] border-[#1e5d6c] justify-between '>
+      <header className='flex items-center justify-between border-b border-[#1e5d6c] p-4'>
         <Link to='/'>
-          <span className='py-2 inline-block'>
-            <img
-              className='w-[4rem] h-[3rem]'
-              src={logo}
-              alt="logo" />
-          </span>
-
+          <img className='w-[4rem] h-[3rem]' src={logo} alt="logo" />
         </Link>
-
         <nav className='flex items-center gap-4'>
-          <Link to='/about'>
-          <a href="#" className='pointer'>Our Story</a>
-          </Link>
-         
+          <Link to='/about' className='text-[#1e5d6c] hover:underline'>Our Story</Link>
           <Link to='/signin'>
-            <button className='pointer'>
-              Sign in
-            </button>
+            <button className='bg-[#206173] text-white py-2 px-4 rounded-[2rem] hover:bg-[#032b13] transition'>Sign in</button>
           </Link>
           <Link to='/signup'>
-            <button className='w-fit md:bg-[#032b13] bg-[#206173] text-white transition pointer hover:opacity-95 py-2 px-4 rounded-[2rem]'>
-              Get started
-            </button>
+            <button className='bg-[#206173] text-white py-2 px-4 rounded-[2rem] hover:bg-[#032b13] transition'>Get started</button>
           </Link>
         </nav>
       </header>
-      <main style={{ paddingInline: "clamp(1rem,5vw,6rem)", gridTemplateColumns: "2fr 1fr" }} className='grid min-h-[80vh]  py-4'>
-        <div className=' grid place-content-center  gap-y-4'>
-          <h1 className=' text-[4rem] font-extrabold'>Human <br /> experiences & concepts</h1>
-          <p style={{ fontSize: "clamp(1rem,2vw,1.5rem)" }}>A platform to study,create and deepen your knowledge</p>
-            <button onClick={read} className='w-fit md:bg-[#032b13] bg-[#206173] text-white transition pointer hover:opacity-95 py-2 px-4 rounded-[2rem]'>
-              Start reading
-            </button>
+      <main className='grid grid-cols-1 md:grid-cols-2 min-h-[80vh] py-4'>
+        <div className='flex flex-col justify-center items-start p-4'>
+          <motion.h1 className='text-[4rem] font-extrabold' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+            Human <br /> experiences & concepts
+          </motion.h1>
+          <motion.p className='text-lg' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}>
+            A platform to study, create and deepen your knowledge
+          </motion.p>
+          <motion.button onClick={read} className='bg-[#206173] text-white py-2 px-4 rounded-[2rem] hover:bg-[#032b13] transition mt-4'>
+            Start reading
+          </motion.button>
         </div>
-        <span className='hidden place-content-center bg-blend-multiply md:inline-block '>
-          <img
-            src={image}
-            alt="hero"
-            className='object-cover'
-          />
-        </span>
+        <motion.img src={image} alt="hero" className='object-cover hidden md:block' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }} />
       </main>
-      <footer style={{ paddingInline: "clamp(1rem,5vw,6rem)" }} className='md:bg-transparent bg-[#1e5d6c] text-white py-4  border-t-[.1rem] border-[#1e5d6c]'>
-        <ul className=' grid grid-cols-4 md:flex text-white md:text-black gap-4 justify-center'>
-          {
-            Object.keys(categoryPage).map((key) => {
-              return (
-                <li onClick={read} key={key}>
-                
-                  <Link to={`/category/${key}`}>
-                    <h2 className=" md:text-[#1e5d6c] text-[.9rem]">{key}</h2>
-                  </Link>
-                </li>
-              )
-            })
-          }
+      <footer className='bg-[#1e5d6c] text-white py-4'>
+        <ul className='grid grid-cols-2 md:grid-cols-4 gap-4 text-center'>
+          {Object.keys(categoryPage).map((key) => (
+            <li key={key}>
+              <Link to={`/category/${key}`}>
+                <h2 className="text-[.9rem]">{key}</h2>
+              </Link>
+            </li>
+          ))}
           <Link to='/contact'>
-          <li><h2 className=" md:text-[#1e5d6c] text-[.9rem]">Contact Us</h2></li>
+            <li><h2 className="text-[.9rem]">Contact Us</h2></li>
           </Link>
           <Link to='/about'>
-          <li><h2 className=" md:text-[#1e5d6c] text-[.9rem]">About Us</h2></li>
+            <li><h2 className="text-[.9rem]">About Us</h2></li>
           </Link>
-       
         </ul>
       </footer>
     </div>
