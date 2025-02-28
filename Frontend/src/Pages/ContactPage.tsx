@@ -27,6 +27,7 @@ const ContactPage: FC = () => {
     e.preventDefault();
     try {
       if(!formData.name || !formData.email || !formData.subject || !formData.message) {
+
         setStatus({ error: "Please fill in all fields." });
         return;
       }

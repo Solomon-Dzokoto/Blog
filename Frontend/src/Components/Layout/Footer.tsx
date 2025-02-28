@@ -46,12 +46,18 @@ const Footer = () => {
               </li>
             )})
           }
+          <Link to="/about">
+          <li className="text-[1.5rem]">About us</li>
+          </Link>
+          <Link to="/contact">
+          <li className="text-[1.5rem]">Contact  us</li>
+          </Link>
+         
         </ul>
       </div>
       <div className="flex items-center justify-between">
         <small className="inline-block mt-8 md:mt-2">Copyright &copy; {(new Date).getFullYear()} Mood.All right reserved.</small>
         <a href="#Top"><span className="bg-slate-100 text-[#1e5d6c]cursor-pointer"><FaArrowAltCircleUp /></span></a>
-
       </div>
 
 

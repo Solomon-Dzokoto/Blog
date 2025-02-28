@@ -17,18 +17,13 @@ const Signup = () => {
   const [message, setMessage] = useState<string | null>(null)
   const handleSubmit = async (prevState: Output, formData: FormData) => {
     const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
     try {
-        const checkedEmail =  userKeeper?.find(data=>data?.email === email) 
-        const checkedPassword =  userKeeper?.find(data=>data?.password === password) 
+      const checkedEmail = userKeeper?.find(data => data?.email === email)
       if (checkedEmail) {
         setError("User already exists");
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        await new Promise(resolve => setTimeout(resolve, 3000))
         errorTimer()
-      }else if(!checkedPassword){
-        setError("Password does not match")
-        await new Promise(resolve => setTimeout(resolve, 2000))
-        errorTimer()
+        return;
       }
     } catch (error) {
       console.log(
@@ -49,7 +44,6 @@ const Signup = () => {
   const errorTimer = () => {
     setTimeout(() => {
       setError(null)
-      setMessage(null)
     }, 3000);
   }
 
@@ -59,9 +53,9 @@ const Signup = () => {
       if (data?.user) {
         console.log("User created");
         setUser(data.user);
-       addUserKeeper(data.user)
+        addUserKeeper(data.user)
         setMessage("User created successfully")
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        await new Promise(resolve => setTimeout(resolve, 3000))
         errorTimer()
         navigate("/user-home");
       }
@@ -103,16 +97,22 @@ const Signup = () => {
             <div className="text-2xl text-[#1e5d6c] font-bold capitalize text-center mb-4">
               <h3>Create an account !</h3>
             </div>
-            {error && (
-              <div className="text-red-600 text-center text-sm mb-2">
-                {error}
-              </div>
-            )}
-            {message && (
-              <div className="text-green-600 text-center text-sm mb-2">
-                {error}
-              </div>
-            )}
+            {
+              error
+                ? (
+                  <div className="text-red-600 text-center text-sm mb-2">
+                    {error}
+                  </div>)
+                : message
+                  ? (
+                    <div className="text-green-600 text-center text-sm mb-2">
+                      {error}
+                    </div>
+                  )
+                  : null
+
+            }
+
             <div>
               <div>
                 <div className="capitalize text-xl mb-2 mt-2">

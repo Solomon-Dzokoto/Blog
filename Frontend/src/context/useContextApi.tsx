@@ -39,9 +39,6 @@ const UseProvider = ({ children }: ProviderProps) => {
 
   const additionalPosts = posts ? [...posts as PostProps[], ...defaultPosts] : defaultPosts
 
-  console.log("dataValue", additionalPosts)
-  console.log("data", data)
-
 
   return (
     <context.Provider value={{ isOpen, setIsOpen, data, search, setSearch, filteredPost:additionalPosts , filteredSearch: data }}>

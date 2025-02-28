@@ -498,5 +498,3 @@ export const posts  = [
 export const data2 = posts.slice(20,24)
 
 export const data3: Props = posts[14]
-
-console.log("Data 2",data2)

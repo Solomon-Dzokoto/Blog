@@ -15,19 +15,24 @@ const SignIn = () => {
   const handleLogin = async (prevState: Output, formData: FormData) => {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    const checkedEmail =  userKeeper?.find(data=>data?.email === email) 
-    const checkedPassword =  userKeeper?.find(data=>data?.password === password) 
+    const checkedEmail = userKeeper?.find(data => data?.email === email)
+    const checkedPassword = userKeeper?.find(data => data?.password === password)
 
     if (!checkedEmail) {
       setError("User does not exist -- You can go to the sign up page to create an account")
-      await new Promise(resolve=>setTimeout(resolve, 3000))
+      await new Promise(resolve => setTimeout(resolve, 8000))
       errorTimer()
-      navigate("/signup")
+      return
     }
-    if(!checkedPassword){
+    if (!checkedPassword) {
       setError("Password is incorrect")
+      await new Promise(resolve => setTimeout(resolve, 8000))
       errorTimer()
+      return
     }
+
+    await new Promise(resolve => setTimeout(resolve, 5000))
+    setMessage("Please wait while we process your request...")
     return await onLogin(prevState, formData)
   }
   const [data, action, isPending] = useActionState(handleLogin, {} as Output)
