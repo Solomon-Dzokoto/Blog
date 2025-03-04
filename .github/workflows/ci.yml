@@ -31,10 +31,9 @@ jobs:
 
             - name: Build Next.js app
               run: npm run build
-
-          # Uncomment when Dockerfile  is ready  
-          # - name: Build Docker image
-          #  run: docker build -t outboundfe:${{ github.sha }} .
+  
+            - name: Build Docker image
+              run: docker build -t outboundfe:${{ github.sha }} .
 
           # Push the Docker image to the registry
           # - name: Log in to Docker Hub
@@ -45,6 +44,6 @@ jobs:
           #
           # - name: Push Docker Image
           #   run: |
-          #     docker push myorg/frontend:${{ github.sha }}
+          #     docker push myorg/frontend:${{ github.sha }} .
 
             
