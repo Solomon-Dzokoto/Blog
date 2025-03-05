@@ -40,11 +40,11 @@ export default function WhySection() {
           </p>
           </div>
 
-           <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 justify-between gap-x-7 gap-y-8 md:gap-y-10 p-4">
+           <div className="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 justify-between gap-x-7 gap-y-8 md:gap-y-10 p-4">
               {
                 whyCardArr.map(card => (
                   <article key={card.title} className="flex flex-col items-start
-                  rounded-3xl bg-secondary-variant p-6 gap-8">
+                  rounded-3xl bg-secondary-variant p-8 gap-8">
                     <h3 className="font-bold text-[2rem]  ">
                       {card.title}
                     </h3>
@@ -59,7 +59,7 @@ export default function WhySection() {
               }
               <div className="flex flex-col lg:flex-row col-span-full justify-between items-start gap-x-7 gap-y-8">
                   <article  className="flex flex-col items-start
-                  rounded-3xl bg-secondary-variant p-6 gap-8">
+                  rounded-3xl bg-secondary-variant p-8 gap-8">
                     <h3 className="font-bold text-[2rem]  ">
                      Seamless Integration
                     </h3>
@@ -70,7 +70,7 @@ export default function WhySection() {
                   
                   </article>
                         <article  className="flex flex-col items-start
-                  rounded-3xl bg-secondary-variant p-6 gap-8">
+                  rounded-3xl bg-secondary-variant p-8 gap-8">
                     <h3 className="font-bold text-[2rem]  ">
               Scalable & Reliable
                     </h3>
