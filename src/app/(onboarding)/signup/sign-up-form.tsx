@@ -13,7 +13,11 @@ const signUpSchema = z.object({
 
 type SignUpData = z.infer<typeof signUpSchema>
 
-export default function SignUpForm() {
+export default function SignUpForm({
+  setHasSubmitted,
+}: {
+  setHasSubmitted: (value: boolean) => void
+}) {
   const {
     register,
     handleSubmit,
@@ -25,10 +29,11 @@ export default function SignUpForm() {
 
   const onSubmit = (data: SignUpData) => {
     console.log("Form Data:", data)
+    setHasSubmitted(true)
   }
 
   return (
-    <div className="w-full max-w-96 rounded-lg bg-white p-6 text-[#212121] shadow-md">
+    <div className="w-full max-w-96 rounded-lg bg-white p-6 text-[#212121]">
       <h2 className="mb-6 text-[32px] font-bold">Sign Up</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">

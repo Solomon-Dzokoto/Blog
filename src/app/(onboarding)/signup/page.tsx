@@ -1,5 +1,5 @@
 import React from "react"
-import SignUpForm from "./sign-up-form"
+import SignUpFlow from "./sign-up-flow"
 
 export default function SignUp() {
   return (
@@ -12,7 +12,7 @@ export default function SignUp() {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <SignUpForm />
+      <SignUpFlow />
     </div>
   )
 }
