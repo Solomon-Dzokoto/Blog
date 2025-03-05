@@ -1,37 +1,38 @@
 name: OutboundFE CI Pipeline
 on:
-    push:
-        branches: [main, dev]
-    pull_request:
-        branches: [main, dev]
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v2
-              with:
-                  node-version: '18'
-                  cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          
 
-            - name: Install dependencies
-              run: npm install
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.4.0
 
-            - name: Run Lint
-              run: npm run lint
-        
-           # Uncomment when tests are added
-           # - name: Run tests
-           #  run: npm test
+      - name: Install dependencies
+        run: pnpm install
 
-            - name: Build Next.js app
-              run: npm run build
-  
-            
+      # Uncomment when tests are added
+      # - name: Run tests
+      #   run: pnpm run test
 
-            
+      - name: Run Lint
+        run: pnpm run lint
+
+      - name: Build Next.js app
+        run: pnpm run build
