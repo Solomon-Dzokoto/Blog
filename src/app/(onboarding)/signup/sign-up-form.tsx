@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
+import Button from "@/component/ui/button"
 
 const signUpSchema = z.object({
   email: z.string().email("Invalid email format"),
@@ -60,14 +61,9 @@ export default function SignUpForm() {
             )}
           </div>
         </div>
-
-        <button
-          type="submit"
-          disabled={!isValid} // Disable when the form is invalid
-          className={`cursor-pointer rounded-xl py-2 text-base font-medium transition outline-none ${isValid ? "bg-[#212121] text-white hover:opacity-90" : "cursor-not-allowed bg-[#C0C3C9] text-[#797979]"}`}
-        >
+        <Button type="submit" disabled={!isValid}>
           Sign up
-        </button>
+        </Button>
       </form>
       <div className="mt-2 flex items-center justify-center gap-1 text-xs">
         <p className="text-[#424242]">Already have an account ?</p>
