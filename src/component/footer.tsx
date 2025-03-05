@@ -3,23 +3,23 @@ import React from "react"
 function Footer() {
   return (
     <>
-      <div className="flex flex-col items-center text-center bg-[#1B1B1B] rounded-3xl text-[#FFF] lg:mx-[80px] mt-[120px] lg:mt-[240px] mb-[190px] pb-8 h-fit lg:h-[592px] max-w-[300px] md:max-w-[768px] lg:max-w-[1280px]">
-        <div className=" items-center w-[300px] lg:w-[627px] pt-[89px]">
-          <p className="font-bold text-5xl/[68px]">
+      <div className="mt-[120px] mb-[190px] flex h-fit max-w-[300px] flex-col items-center rounded-3xl bg-[#1B1B1B] pb-8 text-center text-[#FFF] md:max-w-[768px] lg:mx-[80px] lg:mt-[240px] lg:h-[592px] lg:max-w-[1280px]">
+        <div className="w-[300px] items-center pt-[89px] lg:w-[627px]">
+          <p className="text-5xl/[68px] font-bold">
             Wanting to take your business to the next level?
           </p>
-          <p className="text-[#ECECEC] lg:font-[450px] text-2xl/[32px]">
+          <p className="text-2xl/[32px] text-[#ECECEC] lg:font-[450px]">
             Are you willing to take your business to the next level, register
             with us today.
           </p>
-          <button className="border border-[#0063CC] rounded-xl bg-[#FFF] text-[#2A2A2A] py-[12px] pr-[16px] pl-[24px] mt-[12px]">
+          <button className="mt-[12px] rounded-xl border border-[#0063CC] bg-[#FFF] py-[12px] pr-[16px] pl-[24px] text-[#2A2A2A]">
             Get Started
           </button>
         </div>
       </div>
       <p className="text-center">© 2025, Powered by HNG12</p>
     </>
-  );
+  )
 }
 
 export default Footer

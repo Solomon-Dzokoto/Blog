@@ -1,11 +1,16 @@
-
-
-
 type CardProps = {
-    icon: React.ReactNode,
-    title: string,
-    text: string
+  icon: React.ReactNode
+  title: string
+  text: string
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -25,95 +30,96 @@ const IdeaIcon = () =>{
 
     )
 }
-const UserIcon = () =>{ 
-    return (
-        <svg width="20" height="20" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.5 0.333374C11.6159 0.333374 10.7681 0.684563 10.143 1.30968C9.51784 1.93481 9.16665 2.78265 9.16665 3.66671C9.16665 4.55076 9.51784 5.39861 10.143 6.02373C10.7681 6.64885 11.6159 7.00004 12.5 7.00004C13.384 7.00004 14.2319 6.64885 14.857 6.02373C15.4821 5.39861 15.8333 4.55076 15.8333 3.66671C15.8333 2.78265 15.4821 1.93481 14.857 1.30968C14.2319 0.684563 13.384 0.333374 12.5 0.333374ZM12.5 1.91671C12.7298 1.91671 12.9574 1.96197 13.1697 2.04992C13.382 2.13786 13.5749 2.26677 13.7374 2.42927C13.8999 2.59177 14.0288 2.78469 14.1168 2.99701C14.2047 3.20933 14.25 3.43689 14.25 3.66671C14.25 3.89652 14.2047 4.12408 14.1168 4.3364C14.0288 4.54872 13.8999 4.74164 13.7374 4.90414C13.5749 5.06665 13.382 5.19555 13.1697 5.2835C12.9574 5.37144 12.7298 5.41671 12.5 5.41671C12.2702 5.41671 12.0426 5.37144 11.8303 5.2835C11.618 5.19555 11.425 5.06665 11.2625 4.90414C11.1 4.74164 10.9711 4.54872 10.8832 4.3364C10.7952 4.12408 10.75 3.89652 10.75 3.66671C10.75 3.20258 10.9344 2.75746 11.2625 2.42927C11.5907 2.10108 12.0359 1.91671 12.5 1.91671ZM3.33331 2.83337V5.33337H0.833313V7.00004H3.33331V9.50004H4.99998V7.00004H7.49998V5.33337H4.99998V2.83337H3.33331ZM12.5 7.83337C10.275 7.83337 5.83331 8.94171 5.83331 11.1667V13.6667H19.1666V11.1667C19.1666 8.94171 14.725 7.83337 12.5 7.83337ZM12.5 9.41671C14.975 9.41671 17.5833 10.6334 17.5833 11.1667V12.0834H7.41665V11.1667C7.41665 10.6334 9.99998 9.41671 12.5 9.41671Z" fill="white"/>
-</svg>
-
-    )
+const UserIcon = () => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.5 0.333374C11.6159 0.333374 10.7681 0.684563 10.143 1.30968C9.51784 1.93481 9.16665 2.78265 9.16665 3.66671C9.16665 4.55076 9.51784 5.39861 10.143 6.02373C10.7681 6.64885 11.6159 7.00004 12.5 7.00004C13.384 7.00004 14.2319 6.64885 14.857 6.02373C15.4821 5.39861 15.8333 4.55076 15.8333 3.66671C15.8333 2.78265 15.4821 1.93481 14.857 1.30968C14.2319 0.684563 13.384 0.333374 12.5 0.333374ZM12.5 1.91671C12.7298 1.91671 12.9574 1.96197 13.1697 2.04992C13.382 2.13786 13.5749 2.26677 13.7374 2.42927C13.8999 2.59177 14.0288 2.78469 14.1168 2.99701C14.2047 3.20933 14.25 3.43689 14.25 3.66671C14.25 3.89652 14.2047 4.12408 14.1168 4.3364C14.0288 4.54872 13.8999 4.74164 13.7374 4.90414C13.5749 5.06665 13.382 5.19555 13.1697 5.2835C12.9574 5.37144 12.7298 5.41671 12.5 5.41671C12.2702 5.41671 12.0426 5.37144 11.8303 5.2835C11.618 5.19555 11.425 5.06665 11.2625 4.90414C11.1 4.74164 10.9711 4.54872 10.8832 4.3364C10.7952 4.12408 10.75 3.89652 10.75 3.66671C10.75 3.20258 10.9344 2.75746 11.2625 2.42927C11.5907 2.10108 12.0359 1.91671 12.5 1.91671ZM3.33331 2.83337V5.33337H0.833313V7.00004H3.33331V9.50004H4.99998V7.00004H7.49998V5.33337H4.99998V2.83337H3.33331ZM12.5 7.83337C10.275 7.83337 5.83331 8.94171 5.83331 11.1667V13.6667H19.1666V11.1667C19.1666 8.94171 14.725 7.83337 12.5 7.83337ZM12.5 9.41671C14.975 9.41671 17.5833 10.6334 17.5833 11.1667V12.0834H7.41665V11.1667C7.41665 10.6334 9.99998 9.41671 12.5 9.41671Z"
+        fill="white"
+      />
+    </svg>
+  )
 }
 
-
-
-const Card = ({cardInfo} : {cardInfo: CardProps}) => {
-    const {icon, title, text} = cardInfo
+const Card = ({ cardInfo }: { cardInfo: CardProps }) => {
+  const { icon, title, text } = cardInfo
   return (
-    <div className={"w-full border border-[#E2E2E2] rounded-xl p-5 flex flex-col items-start justify-start gap-10"}>
-         
-         <div className="w-10 h-10 rounded-sm bg-[#2A2A2A] flex justify-center items-center">
-            {icon}
-         </div>
+    <div
+      className={
+        "flex w-full flex-col items-start justify-start gap-10 rounded-xl border border-[#E2E2E2] p-5"
+      }
+    >
+      <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#2A2A2A]">
+        {icon}
+      </div>
 
-        <div>
-        <span className="font-bold text-[1.35rem] leading-7">{title}</span>
-        <p className="text-sm leading-5 mt-2">{text}</p>
-        </div>
+      <div>
+        <span className="text-[1.35rem] leading-7 font-bold">{title}</span>
+        <p className="mt-2 text-sm leading-5">{text}</p>
+      </div>
     </div>
   )
 }
 
-
-
 const cardArray: CardProps[] = [
-    {
-        icon: <UserIcon />,
-        title: "Sign Up",
-        text: "Create your account in minutes and gain access to an AI-powered calling system. No technical setup required"
-
-    }, {
-        icon: <CheckIcon />,
-        title: "Create Your Campaign",
-        text: "Set up a new campaign in minutes by choosing your AI agent, Defining your call script and uploading your contact list."
-
-    }, {
-        icon: <IdeaIcon />,
-        title: "AI Makes the Calls",
-        text: "Once your campaign is live, the AI agent automatically dials each contact, delivers your message naturally, and engages with customer."
-
-    }, {
-        icon: <UserIcon />,
-        title: "Track Calls in Real Time",
-        text: "Stay in control by monitoring calls as they happen. Listen to live conversations, read real-time transcriptions, and see caller details instantly."
-
-    }, {
-        icon: <CheckIcon />,
-        title: "Review Call Outcomes",
-        text: "After each call, access detailed reports showing call results, including answered calls, missed calls, voicemails etc"
-
-    }, {
-        icon: <IdeaIcon />,
-        title: "Optimize & Improve",
-        text: "Use call analytics to refine your outreach strategy to improve engagement based on real-time performance data."
-
-    },
+  {
+    icon: <UserIcon />,
+    title: "Sign Up",
+    text: "Create your account in minutes and gain access to an AI-powered calling system. No technical setup required",
+  },
+  {
+    icon: <CheckIcon />,
+    title: "Create Your Campaign",
+    text: "Set up a new campaign in minutes by choosing your AI agent, Defining your call script and uploading your contact list.",
+  },
+  {
+    icon: <IdeaIcon />,
+    title: "AI Makes the Calls",
+    text: "Once your campaign is live, the AI agent automatically dials each contact, delivers your message naturally, and engages with customer.",
+  },
+  {
+    icon: <UserIcon />,
+    title: "Track Calls in Real Time",
+    text: "Stay in control by monitoring calls as they happen. Listen to live conversations, read real-time transcriptions, and see caller details instantly.",
+  },
+  {
+    icon: <CheckIcon />,
+    title: "Review Call Outcomes",
+    text: "After each call, access detailed reports showing call results, including answered calls, missed calls, voicemails etc",
+  },
+  {
+    icon: <IdeaIcon />,
+    title: "Optimize & Improve",
+    text: "Use call analytics to refine your outreach strategy to improve engagement based on real-time performance data.",
+  },
 ]
-
 
 function HowItWorksSection() {
   return (
-    <section className="flex flex-col gap-8 items-center justify-center p-8">
-     <div className="flex items-center max-w-[580px] justify-center flex-col gap-3">
-      <h2 className="text-[2.5rem] font-bold text-center leading-16">How It Works</h2>
-      <p className="text-center text-base leading-6">Easily set up your campaign, let AI handle the calls, and stay in control with real-time tracking and insights.</p>
-    </div>
+    <section className="flex flex-col items-center justify-center gap-8 p-8">
+      <div className="flex max-w-[580px] flex-col items-center justify-center gap-3">
+        <h2 className="text-center text-[2.5rem] leading-16 font-bold">
+          How It Works
+        </h2>
+        <p className="text-center text-base leading-6">
+          Easily set up your campaign, let AI handle the calls, and stay in
+          control with real-time tracking and insights.
+        </p>
+      </div>
 
-       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-14 w-full justify-center">
-            {
-                cardArray.map(card => (
-                   <Card key={card.title} cardInfo={card} />
-                ))
-            }
-       </div>
+      <div className="grid w-full grid-cols-1 justify-center gap-x-10 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+        {cardArray.map((card) => (
+          <Card key={card.title} cardInfo={card} />
+        ))}
+      </div>
     </section>
   )
 }
-
-
-
-
-
-
-
 
 export default HowItWorksSection
