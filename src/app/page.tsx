@@ -1,6 +1,6 @@
 // Landing page here
 import WhySection from "@/components/why-section"
-import Footer from "../component/footer"
+import Footer from "@/components/footer"
 import BusinessOwnerReviewsSection from "@/components/BusinessOwnerReviewsSection"
 import HowItWorksSection from "@/components/HowItWorksSection"
 import HeroSection from "@/components/HeroSection"
