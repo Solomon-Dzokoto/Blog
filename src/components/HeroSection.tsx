@@ -31,7 +31,11 @@ const HeroSection = () => {
             <div className="mt-20 flex items-center gap-8 md:mt-0">
               <button className="flex items-center gap-1.5 rounded-md bg-[#090F1C] py-3 pr-7 pl-5 text-lg text-white hover:bg-[#000000]">
                 Get started{" "}
-                <img src="/arrow-right.svg" alt="right arrow" className="" />
+                <img
+                  src="/images/arrow-right.svg"
+                  alt="right arrow"
+                  className=""
+                />
               </button>
 
               <Link href="/" className="text-base text-[#090F1C]">
@@ -61,7 +65,7 @@ const HeroSection = () => {
         {/* image */}
         <div
           className="aspect-[5/8] max-w-[700px] bg-cover md:w-[50%]"
-          style={{ backgroundImage: 'url("/hero_image.png")' }}
+          style={{ backgroundImage: 'url("/images/hero_image.png")' }}
         ></div>
       </div>
 
@@ -73,7 +77,7 @@ const HeroSection = () => {
           ))}
         </div>
         <Image
-          src="/hero_banner_background.svg"
+          src="/images/hero_banner_background.svg"
           alt="slanted rectangle"
           width={200}
           height={200}
