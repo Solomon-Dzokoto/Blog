@@ -3,16 +3,17 @@ import Image from "next/image"
 
 const Navbar = () => {
   return (
-    <header className="mx-auto flex h-20 items-center justify-around bg-[#212121]">
+    <header className="di mx-auto flex h-20 items-center justify-around bg-[#212121]">
       <div id="Logo">
         <Image
+          className="w-30"
           src="/images/Logo.png"
           width={140.5}
           height={34.5}
           alt="Picture of the author"
         />
       </div>
-      <ul className="flex gap-[40px] text-[14px] leading-[21] font-[400] text-white">
+      <ul className="hidden gap-[40px] text-[14px] leading-[21] font-[400] text-white sm:flex">
         <li>About</li>
         <li>Features</li>
         <li>Pricing</li>
