@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
 
-import Navbar from "@/components/navbar"
 
 export const metadata: Metadata = {
   title: "Welcome to Outbound AI",
