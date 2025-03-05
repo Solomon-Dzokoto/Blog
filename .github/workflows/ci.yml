@@ -17,17 +17,20 @@ jobs:
               uses: actions/setup-node@v2
               with:
                   node-version: '18'
-                  cache: 'npm'
+                  cache: 'pnpm'
+
+            - name: Install pnpm
+              run: npm install -g pnpm
 
             - name: Install dependencies
-              run: npm install
+              run: pnpm install
 
             - name: Run Lint
-              run: npm run lint
+              run: pnpm run lint
         
            # Uncomment when tests are added
            # - name: Run tests
-           #  run: npm test
+           #  run: pnpm test
 
             - name: Build Next.js app
-              run: npm run build
+              run: pnpm run build
