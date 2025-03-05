@@ -52,7 +52,7 @@ const Card = ({ cardInfo }: { cardInfo: CardProps }) => {
   return (
     <div
       className={
-        "flex w-full flex-col items-start justify-start gap-10 rounded-xl border border-[#E2E2E2] p-5"
+        "flex w-full flex-col items-start justify-start gap-6 md:gap-10 rounded-xl border border-[#E2E2E2] p-5"
       }
     >
       <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#2A2A2A]">
@@ -60,8 +60,8 @@ const Card = ({ cardInfo }: { cardInfo: CardProps }) => {
       </div>
 
       <div>
-        <span className="text-[1.35rem] leading-7 font-bold">{title}</span>
-        <p className="mt-2 text-sm leading-5">{text}</p>
+        <span className="md:text-[1.35rem] text-[1.15rem] leading-7 font-bold">{title}</span>
+        <p className="mt-2 text-xs md:text-sm leading-5">{text}</p>
       </div>
     </div>
   )
@@ -103,17 +103,17 @@ const cardArray: CardProps[] = [
 function HowItWorksSection() {
   return (
     <section className="flex flex-col items-center justify-center gap-8 p-8">
-      <div className="flex max-w-[580px] flex-col items-center justify-center gap-3">
-        <h2 className="text-center text-[2.5rem] leading-16 font-bold">
+      <div className="flex max-w-[580px] flex-col items-center justify-center gap-1.5 md:gap-3">
+        <h2 className="text-center text-3xl md:text-[2.5rem] leading-10 md:leading-16 font-bold">
           How It Works
         </h2>
-        <p className="text-center text-base leading-6">
+        <p className="text-center text-sm md:text-base leading-6">
           Easily set up your campaign, let AI handle the calls, and stay in
           control with real-time tracking and insights.
         </p>
       </div>
 
-      <div className="grid w-full grid-cols-1 justify-center gap-x-10 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid w-full grid-cols-1 justify-center gap-y-10 gap-x-10 md:gap-y-14 md:grid-cols-2 lg:grid-cols-3">
         {cardArray.map((card) => (
           <Card key={card.title} cardInfo={card} />
         ))}

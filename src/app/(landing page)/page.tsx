@@ -5,9 +5,11 @@ import BusinessOwnerReviewsSection from "@/components/BusinessOwnerReviewsSectio
 import HowItWorksSection from "@/components/HowItWorksSection"
 import HeroSection from "@/components/HeroSection"
 
-export default function Home() {
+
+
+function LandingPage() {
   return (
-    <main>
+    <main className="flex flex-col gap-20">
       <HeroSection />
       <HowItWorksSection />
       <WhySection />
@@ -16,3 +18,4 @@ export default function Home() {
     </main>
   )
 }
+export default LandingPage
