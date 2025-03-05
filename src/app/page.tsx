@@ -1,5 +1,8 @@
 // Landing page here
 
+import HeroSection from "@/components/HeroSection"
+
 export default function Home() {
-  return <div>Hello World</div>
+  return <HeroSection />
+  // <div>Hello World</div>
 }
