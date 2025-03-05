@@ -1,3 +1,4 @@
+
 import Image from 'next/image'
 import React from 'react'
 import img from '../../../public/comingSoonImg.svg'
@@ -28,6 +29,12 @@ const ComingSoon = () => {
             </button>
         </div>
     )
+
+
 }
+
+
+
+
 
 export default ComingSoon
