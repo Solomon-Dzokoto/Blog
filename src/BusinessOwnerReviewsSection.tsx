@@ -1,7 +1,8 @@
 "use client";
 
 import "swiper/css";
-import { useState, useRef } from "react";
+import "swiper/css/navigation";
+import {  useRef } from "react";
 import quoteIcon from "@/assets/quote.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -43,10 +44,10 @@ const businessOwnerReviews = [
     imagePath: "/images/brian.png",
     text: "Join business owners who have improved customer engagement and streamlined outreach with our AI-powered outbound calling. Hear their success stories and see the impact.",
   },
+  
 ];
 
 function BusinessOwnerReviewsSection() {
-  const [activeIndex, setActiveIndex] = useState(1);
   const prevButtonRef = useRef(null);
   const nextButtonRef = useRef(null);
   return (
@@ -63,7 +64,7 @@ function BusinessOwnerReviewsSection() {
       </div>
       {/* Carousel Section */}
 
-      <article className="w-full justify-center  flex  h-[400px] relative">
+      <article className="w-full  justify-center  flex  h-[400px] relative">
         <Swiper
           loop={true}
           spaceBetween={30}
@@ -77,7 +78,7 @@ function BusinessOwnerReviewsSection() {
             },
             1280: {
               slidesPerView: 3,
-              spaceBetween: 10,
+              spaceBetween: 15,
               centeredSlides: true,
             },
           }}
@@ -86,26 +87,24 @@ function BusinessOwnerReviewsSection() {
             nextEl: nextButtonRef.current,
           }}
           modules={[Navigation]}
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex + 1)}
+       
         >
           {businessOwnerReviews.map((review, index) => (
             <SwiperSlide
               key={index}
-              className={`${
-                activeIndex === index ? "!w-[70%]" : "!w-[197px]"
-              }   !flex h-full border-2 border-red-500 items-center`}
+              className={`!w-max lg:w-[60%] !flex  h-full transition-all duration-500  items-center`}
             >
-              <figure className={`h-full  shrink-0 max-w-[308px] w-full`}>
+              <figure className={`h-full relative  shrink-0 max-w-[308px] w-full`}>
                 <img
                   src={review.imagePath}
                   alt={review.name}
                   className="size-full object-cover object-center"
                 />
+          
+                 
               </figure>
               <div
-                className={`${
-                  activeIndex === index ? "flex" : "hidden"
-                }   max-w-[500px]  flex-col  transition-all  gap-8 p-5`}
+                className={` max-w-[500px] flex flex-col  transition-all  gap-8 p-5`}
               >
                 <img
                   src={quoteIcon.src}
@@ -128,6 +127,19 @@ function BusinessOwnerReviewsSection() {
             </SwiperSlide>
           ))}
         </Swiper>
+
+         <div className="bg-[#B2E1C8] flex justify-center items-center opacity-80 w-[100px] lg:w-[200px] z-50 h-full absolute top-0 left-0">
+          <button type="button" ref={prevButtonRef} className="flex cursor-pointer justify-center items-center">
+
+          <LeftArrowIcon />
+          </button>
+         </div>
+          <div className="bg-[#B2E1C8] flex justify-center items-center z-50 opacity-80 w-[100px] lg:w-[200px] h-full absolute top-0 right-0">
+            <button type="button" ref={nextButtonRef} className="flex cursor-pointer justify-center items-center">
+
+            <RightArrowIcon />
+            </button>
+          </div>
       </article>
 
       <button
@@ -139,4 +151,24 @@ function BusinessOwnerReviewsSection() {
     </section>
   );
 }
+
+
+const LeftArrowIcon = () => {
+  return (
+    <svg width="40" height="40" viewBox="0 0 46 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M44.3333 17H1.66667M1.66667 17L17.6667 33M1.66667 17L17.6667 1" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+
+  )
+}
+const RightArrowIcon = () => {
+  return (
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.33337 19.9999H38.6667M38.6667 19.9999L20 1.33325M38.6667 19.9999L20 38.6666" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+
+
+  )
+}
+
 export default BusinessOwnerReviewsSection;
