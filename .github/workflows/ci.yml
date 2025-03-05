@@ -11,16 +11,26 @@ jobs:
 
         steps:
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Setup Node.js
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v4
               with:
                   node-version: '18'
                   cache: 'pnpm'
 
-            - name: Install pnpm
-              run: npm install -g pnpm
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v3
+              with:
+                  version: 8 # Adjust to the latest version if needed
+
+            - name: Cache pnpm store
+              uses: actions/cache@v3
+              with:
+                  path: ~/.pnpm-store
+                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-
 
             - name: Install dependencies
               run: pnpm install
@@ -33,3 +43,4 @@ jobs:
            #  run: pnpm test
 
             - name: Build Next.js app
+              run: pnpm run build
