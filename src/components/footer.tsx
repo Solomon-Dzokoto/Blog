@@ -10,7 +10,7 @@ function Footer() {
             <h5 className="text-3xl font-bold lg:text-5xl lg:leading-[68px]">
               Wanting to take your business to the next level?
             </h5>
-            <p className="text-2xl leading-[32px] text-[#ECECEC] lg:text-2xl lg:font-[450px]">
+            <p className="text-base leading-6  md:leading-[32px] text-[#ECECEC] md:text-2xl md:font-[450px]">
               Are you willing to take your business to the next level, register
               with us today.
             </p>
