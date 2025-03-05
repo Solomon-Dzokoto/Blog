@@ -5,6 +5,7 @@ import { useRef } from "react"
 import quoteIcon from "@/assets/quote.svg"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation } from "swiper/modules"
+import Image from "next/image"
 
 const businessOwnerReviews = [
   {
@@ -94,16 +95,20 @@ function BusinessOwnerReviewsSection() {
               <figure
                 className={`relative h-full w-full max-w-[308px] shrink-0`}
               >
-                <img
+                <Image
                   src={review.imagePath}
                   alt={review.name}
+                  width={304}
+                  height={400}
                   className="size-full object-cover object-center"
                 />
               </figure>
               <div
                 className={`flex max-w-[500px] flex-col gap-8 p-5 transition-all`}
               >
-                <img
+                <Image
+                  width={86}
+                  height={72.4}
                   src={quoteIcon.src}
                   alt="quote icon"
                   className="h-auto w-[86px] object-cover"
