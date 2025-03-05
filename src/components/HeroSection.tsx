@@ -14,11 +14,11 @@ const brandImages = [
 const HeroSection = () => {
   return (
     <div className="bg-blue-40 relative overflow-hidden border p-6 md:max-h-[907px] lg:py-10 xl:px-20 2xl:max-h-[1400px]">
-      <div className="md:items-cente flex h-full flex-col justify-between gap-10 md:flex-row xl:gap-[94px]">
+      <div className="flex h-full flex-col gap-10 md:flex-row md:justify-between xl:gap-[94px]">
         {/* text */}
         <div className="flex max-w-[675px] flex-col gap-20 md:w-[50%] md:py-[98px] xl:w-[60%] xl:gap-[168px]">
           <div className="gap-6 space-y-6 lg:space-y-8">
-            <h1 className="text-4xl font-bold text-[#090F1C] xl:text-[56px] xl:leading-16">
+            <h1 className="text-4xl font-bold text-[#090F1C] sm:text-5xl md:text-4xl lg:text-5xl xl:text-[56px] xl:leading-16">
               Reach More Customers, Follow Up With Ease
             </h1>
             <p className="text-base text-[#53686A] lg:text-2xl lg:leading-10">
@@ -64,7 +64,7 @@ const HeroSection = () => {
 
         {/* image */}
         <div
-          className="aspect-[5/8] max-w-[700px] bg-cover md:w-[50%]"
+          className="mx-auto aspect-[5/8] w-full max-w-sm justify-self-center bg-cover md:mx-0 md:w-[50%] md:max-w-[511px] xl:max-w-[800px] 2xl:max-h-[900px]"
           style={{ backgroundImage: 'url("/images/hero_image.png")' }}
         ></div>
       </div>
