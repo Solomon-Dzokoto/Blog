@@ -1,10 +1,10 @@
 "use client"
-
 import "swiper/css"
 import "swiper/css/navigation"
-import { useRef } from "react"
+import { useRef , useState, useEffect} from "react"
 import quoteIcon from "@/assets/quote.svg"
 import { Swiper, SwiperSlide } from "swiper/react"
+import  NavigationOptions, {Swiper as SwiperType} from "swiper"
 import { Navigation } from "swiper/modules"
 import Image from "next/image"
 
@@ -50,13 +50,32 @@ const businessOwnerReviews = [
 function BusinessOwnerReviewsSection() {
   const prevButtonRef = useRef(null)
   const nextButtonRef = useRef(null)
+
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+
+  useEffect(() => {
+
+    if (swiperInstance && prevButtonRef.current && nextButtonRef.current && swiperInstance.params.navigation) {
+    const navigationParams = swiperInstance.params.navigation as any;
+
+      if (!navigationParams) return;
+
+    navigationParams.prevEl = prevButtonRef.current;
+    navigationParams.nextEl = nextButtonRef.current;
+    swiperInstance.navigation.init();
+    swiperInstance.navigation.update();
+     
+    }
+  }, [swiperInstance]); 
+
+
   return (
     <section className="flex flex-col items-center justify-center gap-14 bg-[#F6F8FA] p-8">
       <div className="flex flex-col items-center justify-center gap-4">
-        <h4 className="max-w-[580px] text-center text-[40px] leading-12 font-[900]">
+        <h4 className="max-w-[580px] text-center text-4xl leading-10   md:text-[40px] md:leading-12 font-[900]">
           What Business Owners Are Saying About Us
         </h4>
-        <p className="max-w-[707px] text-center text-base leading-6">
+        <p className="max-w-[707px] text-center text-sm md:text-base leading-6">
           Join business owners who have improved customer engagement and
           streamlined outreach with our AI-powered outbound calling. Hear their
           success stories and see the impact.
@@ -64,7 +83,7 @@ function BusinessOwnerReviewsSection() {
       </div>
       {/* Carousel Section */}
 
-      <article className="relative flex h-[400px] w-full justify-center">
+      <article className="relative flex h-[700px] md:h-[400px]  w-full justify-center">
         <Swiper
           loop={true}
           spaceBetween={30}
@@ -76,51 +95,54 @@ function BusinessOwnerReviewsSection() {
               spaceBetween: 20,
               centeredSlides: false,
             },
-            1280: {
+             1280: {
               slidesPerView: 3,
               spaceBetween: 15,
               centeredSlides: true,
             },
           }}
           navigation={{
-            prevEl: prevButtonRef.current,
             nextEl: nextButtonRef.current,
+            prevEl: prevButtonRef.current,
           }}
           modules={[Navigation]}
+          onSwiper={setSwiperInstance}
         >
           {businessOwnerReviews.map((review, index) => (
             <SwiperSlide
               key={index}
-              className={`!flex h-full !w-max items-center transition-all duration-500 lg:w-[60%]`}
+              className={`!flex h-full !w-[390px] flex-col  md:flex-row items-center  transition-all duration-500 md:!w-[80%] lg:!w-[60%]`}
             >
               <figure
-                className={`relative h-full w-full max-w-[308px] shrink-0`}
+                className={`relative md:h-full w-full h-[400px] md:max-w-[308px] shrink-0`}
               >
                 <Image
                   src={review.imagePath}
                   alt={review.name}
-                  width={304}
-                  height={400}
-                  className="size-full object-cover object-center"
+                  placeholder="empty"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  fill
+                  className="rounded-2xl md:rounded-none object-cover object-center"
                 />
               </figure>
               <div
-                className={`flex max-w-[500px] flex-col gap-8 p-5 transition-all`}
+                className={`flex max-w-[500px] flex-col   p-2.5 gap-4 md:gap-8 md:p-5 transition-all`}
               >
                 <Image
                   width={86}
                   height={72.4}
                   src={quoteIcon.src}
                   alt="quote icon"
-                  className="h-auto w-[86px] object-cover"
+                  className="h-auto w-10 md:w-[86px] object-cover"
                 />
 
-                <p className="text-base leading-6 break-words">{review.text}</p>
-                <div className="mt-6">
-                  <p className="text-[2rem] leading-6 font-bold">
+                <p className="md:text-base text-sm leading-6 break-words">{review.text}</p>
+                <div className="md:mt-6 mt-4">
+                  <p className="text-[2rem] text-base leading-6 font-bold">
                     {review.name}
                   </p>
-                  <span className="mt-2 block text-base leading-6">
+                  <span className="mt-2 block text-sm md:text-base leading-6">
                     {review.businessName}
                   </span>
                 </div>
@@ -129,7 +151,7 @@ function BusinessOwnerReviewsSection() {
           ))}
         </Swiper>
 
-        <div className="absolute top-0 left-0 z-50 flex h-full w-[100px] items-center justify-center bg-[#B2E1C8] opacity-80 lg:w-[200px]">
+        <div className="absolute hidden top-0 left-0 z-50 md:flex h-full w-[100px] items-center justify-center bg-[#B2E1C8] opacity-80 lg:w-[200px]">
           <button
             type="button"
             ref={prevButtonRef}
@@ -138,7 +160,7 @@ function BusinessOwnerReviewsSection() {
             <LeftArrowIcon />
           </button>
         </div>
-        <div className="absolute top-0 right-0 z-50 flex h-full w-[100px] items-center justify-center bg-[#B2E1C8] opacity-80 lg:w-[200px]">
+        <div className="absolute hidden top-0 right-0 z-50 md:flex h-full w-[100px] items-center justify-center bg-[#B2E1C8] opacity-80 lg:w-[200px]">
           <button
             type="button"
             ref={nextButtonRef}

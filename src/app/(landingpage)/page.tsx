@@ -1,18 +1,22 @@
 // Landing page here
 import WhySection from "@/components/why-section"
-import Footer from "../../component/footer"
+import Footer from "@/components/footer"
+
 import BusinessOwnerReviewsSection from "@/components/BusinessOwnerReviewsSection"
 import HowItWorksSection from "@/components/HowItWorksSection"
 import HeroSection from "@/components/HeroSection"
 
-export default function Home() {
+
+
+function LandingPage() {
   return (
-    <main>
+    <main className="flex flex-col gap-20">
       <HeroSection />
-      <WhySection />
       <HowItWorksSection />
+      <WhySection />
       <BusinessOwnerReviewsSection />
       <Footer />
     </main>
   )
 }
+export default LandingPage
