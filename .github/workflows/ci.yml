@@ -33,4 +33,3 @@ jobs:
            #  run: pnpm test
 
             - name: Build Next.js app
-              run: pnpm run build
