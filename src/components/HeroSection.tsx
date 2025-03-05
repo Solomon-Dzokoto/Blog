@@ -71,7 +71,7 @@ const HeroSection = () => {
 
       {/* bottom banner */}
       <div className="absolute right-0 bottom-0 left-0 grid w-screen items-center bg-[#1B1B1B] py-6 md:-bottom-10 md:translate-y-2 md:bg-transparent">
-        <div className="relative z-10 mx-auto flex w-full flex-wrap items-center justify-center gap-6 px-6 md:absolute md:justify-between md:gap-10 lg:-rotate-1 lg:gap-14 xl:gap-[120px] xl:px-[80px]">
+        <div className="relative z-10 mx-auto flex w-full flex-wrap items-center justify-center gap-6 px-6 md:absolute md:justify-between md:gap-10 lg:-rotate-1 lg:gap-14 xl:px-[80px]">
           {brandImages.map((brandImage, index) => (
             <img key={index} src={`/images/${brandImage}`} alt="brand image" />
           ))}
