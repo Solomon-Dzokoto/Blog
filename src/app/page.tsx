@@ -1,5 +1,10 @@
 // Landing page here
+import Footer from "../component/footer";
 
 export default function Home() {
-  return <div>Hello World</div>;
+  return (
+    <div>
+      <Footer />
+    </div>
+  );
 }
