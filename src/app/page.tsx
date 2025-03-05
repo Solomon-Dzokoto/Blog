@@ -1,9 +1,10 @@
-import BusinessOwnerReviewsSection from "@/components/BusinessOwnerReviewsSection";
+// Landing page here
+import Footer from "../component/footer";
 
 export default function Home() {
   return (
-    <main className="max-w-[1500px] mx-auto w-full bg-amber-400">
-      <BusinessOwnerReviewsSection />
-    </main>
+    <div>
+      <Footer />
+    </div>
   );
 }
