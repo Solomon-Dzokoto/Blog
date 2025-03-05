@@ -1,0 +1,49 @@
+name: OutboundFE CI Pipeline
+on:
+    push:
+        branches: [main, dev]
+    pull_request:
+        branches: [main, dev]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '18'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Run Lint
+              run: npm run lint
+        
+           # Uncomment when tests are added
+           # - name: Run tests
+           #  run: npm test
+
+            - name: Build Next.js app
+              run: npm run build
+  
+            - name: Build Docker image
+              run: docker build -t outboundfe:${{ github.sha }} .
+
+          # Push the Docker image to the registry
+          # - name: Log in to Docker Hub
+          #   uses: docker/login-action@v2
+          #   with:
+          #     username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          #
+          # - name: Push Docker Image
+          #   run: |
+          #     docker push myorg/frontend:${{ github.sha }} .
+
+            
