@@ -19,7 +19,7 @@ export default function whySection() {
           </p>
         </header>
         <ul className="flex flex-col place-content-center gap-[23px] md:gap-10 xl:pb-2.5">
-          <li>
+          <li className="flex flex-col items-center gap-[23px] self-stretch px-6 md:max-h-[356px] md:flex-row md:items-start md:gap-3 md:px-0 xl:gap-10">
             <article className="bg-color-secondary flex flex-col gap-4 rounded-3xl px-6 py-10 md:h-[216px] md:w-[32%] md:gap-6 xl:h-full xl:flex-1 xl:gap-8 xl:py-18 xl:pr-13 xl:pl-14">
               <h3 className="text-primary text-2xl leading-6 font-bold break-words md:max-w-[130px] md:text-xl xl:max-w-[293px] xl:text-[32px] xl:leading-[38px]">
                 Automated Efficiency
@@ -51,7 +51,7 @@ export default function whySection() {
               </p>
             </article>
           </li>
-          <li>
+          <li className="flex flex-col items-center gap-[23px] px-6 md:flex-row md:items-start md:gap-6 md:px-0 xl:gap-10">
             <article className="bg-color-secondary flex w-full flex-col items-start gap-4 rounded-3xl px-6 py-10 md:gap-4 md:py-8 md:pr-[20px] md:pl-5 xl:w-full xl:justify-center xl:gap-8 xl:py-20 xl:pr-[84px] xl:pb-14 xl:pl-[56px]">
               <h3 className="text-primary text-2xl leading-6 font-bold break-words whitespace-normal md:w-full xl:text-[32px] xl:leading-[38px]">
                 Seamless Integration
