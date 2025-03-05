@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 function Footer() {
   return (
@@ -13,7 +13,7 @@ function Footer() {
       </div>
       <p>© 2025, Powered by HNG12</p>
     </div>
-  );
+  )
 }
 
-export default Footer;
+export default Footer
