@@ -1,5 +1,9 @@
-// Landing page here
+import BusinessOwnerReviewsSection from "@/components/BusinessOwnerReviewsSection";
 
 export default function Home() {
-  return <div>Hello World</div>
+  return (
+    <main className="max-w-[1500px] mx-auto w-full bg-amber-400">
+      <BusinessOwnerReviewsSection />
+    </main>
+  );
 }
