@@ -1,48 +1,47 @@
 #!/usr/bin/env sh
 
-echo '🏗️👷 Running checks on your code before committing' 🔍🧐
+# Branch protection
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
+    echo "🚨 Direct pushes to '$BRANCH' are restricted. 🚨"
+    echo "Please create a feature branch and push your changes there."
+    exit 1
+fi
 
-echo "styling your work" 🎨✨
+echo "🔍 Running pre-commit checks..."
 
+echo "🎨 Checking code formatting..."
 
 # Check Prettier standards
 pnpm run check-format ||
 (
-    echo '🤢🤮🤢🤮 Its so ugly!! - Your styling looks disgusting. 🤢🤮🤢🤮
-            Prettier Check Failed. Running npm run format...';
+    echo "⚠️ Code formatting does not meet the required standards. Running auto-formatting..."
     npm run format;
     git add .;
-    echo '✨ Formatting complete and changes added. Committing with the previous commit message...';
+    echo "✅ Formatting applied. Amending the commit with updated formatting."
     git commit --amend --no-edit;
-    echo '✅✅ Amended commit with the new changes. Please try to push again.';
-
+    echo "✅ Formatting complete. Please retry your push."
 )
 
-
-echo '🏗️👷 checking for eslint errors' 🔍🧐
+echo "🔎 Running ESLint checks..."
 
 # Check ESLint Standards
 pnpm run lint ||
-	(
-		echo '😤🏀👋😤 Get that beans code out of here! 😤🏀👋😤
-                ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
-		false
-	)
+    (
+        echo "❌ ESLint checks failed. Please resolve the issues above before committing."
+        false
+    )
 
-echo '🏗️👷 checking for typescript errors' 🔍🧐
+echo "📌 Checking for TypeScript errors..."
 
-# Check tsconfig standards
+# Check TypeScript Standards
 pnpm run check-types ||
-	(
-		echo '🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
-           Are you seriously trying to write that? Make the changes required above.'
-		false
-	)
+    (
+        echo "❌ TypeScript compilation failed. Please fix the errors before proceeding."
+        false
+    )
 
-# npx lint-staged       
+# If all checks pass
+echo "✅ All checks passed. Proceeding with commit."
 
-# If everything passes... Now we can commit
-echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'
-
-echo '✅✅ Awesome work! ✅✅'
-echo '🚀⛅ Run git push to upload your changes to the remote repository ⛅🚀'
+echo "🚀 Push your changes using 'git push' to update the remote repository."

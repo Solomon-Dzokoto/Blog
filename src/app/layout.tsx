@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 
+
 export const metadata: Metadata = {
   title: "Welcome to Outbound AI",
   description:
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={``}>{children}</body>
+      <body className={`min-h-screen`}>
+        {children}
+      </body>
     </html>
   )
 }
