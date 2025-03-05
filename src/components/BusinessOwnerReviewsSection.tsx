@@ -46,6 +46,7 @@ const businessOwnerReviews = [
     text: "Join business owners who have improved customer engagement and streamlined outreach with our AI-powered outbound calling. Hear their success stories and see the impact.",
   },
 ]
+]
 
 function BusinessOwnerReviewsSection() {
   const prevButtonRef = useRef(null)
@@ -169,20 +170,39 @@ function BusinessOwnerReviewsSection() {
             <RightArrowIcon />
           </button>
         </div>
+          </button>
+        </div>
       </article>
 
       <button
         type="button"
+        className="cursor-pointer rounded-xl border px-6 py-3 text-center align-middle"
         className="cursor-pointer rounded-xl border px-6 py-3 text-center align-middle"
       >
         See more
       </button>
     </section>
   )
+  )
 }
 
 const LeftArrowIcon = () => {
   return (
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 46 34"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M44.3333 17H1.66667M1.66667 17L17.6667 33M1.66667 17L17.6667 1"
+        stroke="white"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
     <svg
       width="40"
       height="40"
@@ -217,7 +237,23 @@ const RightArrowIcon = () => {
         strokeLinejoin="round"
       />
     </svg>
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 40 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1.33337 19.9999H38.6667M38.6667 19.9999L20 1.33325M38.6667 19.9999L20 38.6666"
+        stroke="white"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   )
 }
 
+export default BusinessOwnerReviewsSection
 export default BusinessOwnerReviewsSection
