@@ -1,4 +1,4 @@
-export default function whySection() {
+export default function WhySection() {
   return (
     <section
       className="px-4 py-20 md:px-20 md:py-40 xl:py-48 xl:pb-[188px]"
