@@ -13,9 +13,9 @@ export default function whySection() {
             Why Choose Our AI-Powered Outbound Calling Solution?
           </h2>
           <p className="text-secondary max-w-[350px] text-center text-sm font-normal sm:max-w-[550px] md:max-w-[556px] md:text-xs xl:max-w-[757px] xl:text-base">
-            We’re more than just an AI calling system — we’re your growth
-            partner. Experience seamless automation, real-time insights, and
-            smarter that helps you connect with customers effortlessly.
+            We&apos;re more than just an AI calling system — we&apos;re your
+            growth partner. Experience seamless automation, real-time insights,
+            and smarter that helps you connect with customers effortlessly.
           </p>
         </header>
         <ul className="flex flex-col place-content-center gap-[23px] md:gap-10 xl:pb-2.5">
@@ -48,6 +48,28 @@ export default function whySection() {
                 Gain valuable analytics on call performance, customer responses,
                 and campaign success to refine your outreach strategy
                 effortlessly.
+              </p>
+            </article>
+          </li>
+          <li>
+            <article className="bg-color-secondary flex w-full flex-col items-start gap-4 rounded-3xl px-6 py-10 md:gap-4 md:py-8 md:pr-[20px] md:pl-5 xl:w-full xl:justify-center xl:gap-8 xl:py-20 xl:pr-[84px] xl:pb-14 xl:pl-[56px]">
+              <h3 className="text-primary text-2xl leading-6 font-bold break-words whitespace-normal md:w-full xl:text-[32px] xl:leading-[38px]">
+                Seamless Integration
+              </h3>
+              <p className="text-secondary text-xs font-normal md:max-w-[318px] xl:max-w-[400px] xl:text-base">
+                Easily upload contact lists, customize scripts, and adjust
+                settings to fit your business needs—no technical expertise
+                required.
+              </p>
+            </article>
+            <article className="bg-color-secondary flex flex-col items-start gap-4 rounded-3xl px-6 py-10 md:w-full md:gap-4 md:py-8 md:pr-[20px] md:pl-5 xl:justify-center xl:gap-10 xl:pt-20 xl:pr-[84px] xl:pb-[48px] xl:pl-[56px]">
+              <h3 className="text-primary text-2xl leading-6 font-bold break-words whitespace-normal md:w-full xl:text-[32px] xl:leading-[38px]">
+                Scalable & Reliable
+              </h3>
+              <p className="text-secondary text-xs font-normal md:max-w-[349px] xl:text-base">
+                Whether you&apos;re making a few calls or thousands, our AI
+                system scales with your business, ensuring consistent and
+                professional communication.
               </p>
             </article>
           </li>
