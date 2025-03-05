@@ -6,11 +6,12 @@ import HowItWorksSection from "@/components/HowItWorksSection";
 
 export default function Home() {
   return (
-    <div>
+    <main>
       <WhySection />
+      <HowItWorksSection />
       <BusinessOwnerReviewsSection />
       <Footer />
-    </div>
+    </main>
   )
 }
 
