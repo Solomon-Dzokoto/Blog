@@ -6,8 +6,6 @@ import BusinessOwnerReviewsSection from "@/components/BusinessOwnerReviewsSectio
 import HowItWorksSection from "@/components/HowItWorksSection"
 import HeroSection from "@/components/HeroSection"
 
-
-
 function LandingPage() {
   return (
     <main className="flex flex-col gap-20">

@@ -31,10 +31,12 @@ const HeroSection = () => {
             <div className="mt-20 flex items-center gap-8 md:mt-0">
               <button className="flex items-center gap-1.5 rounded-md bg-[#090F1C] py-3 pr-7 pl-5 text-lg text-white hover:bg-[#000000]">
                 Get started{" "}
-                <img
+                <Image
                   src="/images/arrow-right.svg"
                   alt="right arrow"
                   className=""
+                  width={20}
+                  height={20}
                 />
               </button>
 
@@ -73,7 +75,13 @@ const HeroSection = () => {
       <div className="absolute right-0 bottom-0 left-0 grid w-screen items-center bg-[#1B1B1B] py-6 md:-bottom-10 md:translate-y-2 md:bg-transparent">
         <div className="relative z-10 mx-auto flex w-full flex-wrap items-center justify-center gap-6 px-6 md:absolute md:justify-between md:gap-10 lg:-rotate-1 lg:gap-14 xl:px-[80px]">
           {brandImages.map((brandImage, index) => (
-            <img key={index} src={`/images/${brandImage}`} alt="brand image" />
+            <Image
+              key={index}
+              src={`/images/${brandImage}`}
+              alt="brand image"
+              width={40}
+              height={40}
+            />
           ))}
         </div>
         <Image

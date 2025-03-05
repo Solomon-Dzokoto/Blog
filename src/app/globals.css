@@ -1,33 +1,26 @@
 @import "tailwindcss";
 
-
 @theme {
   --font-circular-std: "circular-std", sans-serif;
   --font-roboto: "roboto", sans-serif;
   --font-mona-sans: "mona-sans", sans-serif;
-  --color-primary: #090F1C;
-  --color-secondary: #53686A;
+  --color-primary: #090f1c;
+  --color-secondary: #53686a;
   --font-weight-bolder: 900;
-  --color-secondary-variant: #F6F8FA;
-  --color-white-background-color: #FFFFFF;
+  --color-secondary-variant: #f6f8fa;
+  --color-white-background-color: #ffffff;
   --color-black-background-variant-3: #212121;
-  --color-black-background-variant-4: #2A2A2A;
-  --color-black-background-variant-4: #1B1B1B;
+  --color-black-background-variant-4: #2a2a2a;
+  --color-black-background-variant-4: #1b1b1b;
   --color-black-text-variant-1: #212121;
-  --color-black-text-variant-2: #090F1C;
-  --color-black-text-variant-3: #2A2A2A;
-  --color-black-text-variant-4: #1C1C1C;
-  --color-black-text-variant-5: #1B1B1B;
+  --color-black-text-variant-2: #090f1c;
+  --color-black-text-variant-3: #2a2a2a;
+  --color-black-text-variant-4: #1c1c1c;
+  --color-black-text-variant-5: #1b1b1b;
   --color-grey-text-variant-1: #474747;
-  --color-grey-text-variant-2: #53686A;
-  --color-grey-text-variant-3: #84919D;
-  --color-white-text-variant-1: #ECECEC;
-  --color-black-button-variant-1: #1B1B1B;
-  --color-grey-border-variant-1: #A0A0A0;
+  --color-grey-text-variant-2: #53686a;
+  --color-grey-text-variant-3: #84919d;
+  --color-white-text-variant-1: #ececec;
+  --color-black-button-variant-1: #1b1b1b;
+  --color-grey-border-variant-1: #a0a0a0;
 }
-
-
-
-
-
-
