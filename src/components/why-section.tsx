@@ -51,7 +51,6 @@ export default function whySection() {
               </p>
             </article>
           </li>
-          <li></li>
         </ul>
       </div>
     </section>
