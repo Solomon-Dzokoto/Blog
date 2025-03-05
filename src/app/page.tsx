@@ -1,4 +1,4 @@
-import BusinessOwnerReviewsSection from "@/BusinessOwnerReviewsSection";
+import BusinessOwnerReviewsSection from "@/components/BusinessOwnerReviewsSection";
 
 export default function Home() {
   return (
