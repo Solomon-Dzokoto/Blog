@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import "./globals.css"
-import Navbar from "@/components/navbar"
 
 export const metadata: Metadata = {
   title: "Welcome to Outbound AI",
@@ -15,10 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={``}>
-        <Navbar />
-        {children}
-      </body>
+      <body className={``}>{children}</body>
     </html>
   )
 }
