@@ -1,7 +1,6 @@
 "use client"
 
-import "swiper/css"
-import "swiper/css/navigation"
+
 import { useRef } from "react"
 import quoteIcon from "@/assets/quote.svg"
 import { Swiper, SwiperSlide } from "swiper/react"
