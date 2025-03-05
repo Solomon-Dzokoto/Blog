@@ -1,15 +1,16 @@
-import Image from "next/image"
 import React from "react"
 import SignUpForm from "./sign-up-form"
 
 export default function SignUp() {
   return (
-    <div>
-      <Image
-        src={"/images/Logo.png"}
-        width={281}
-        height={69}
-        alt="outbound logo"
+    <div className="mt-[18.5%] flex flex-col items-center space-y-20 px-[4.5%]">
+      <div
+        className="h-[72px] w-[284px]"
+        style={{
+          backgroundImage: "url('/images/Logo.png')",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
       />
       <SignUpForm />
     </div>
