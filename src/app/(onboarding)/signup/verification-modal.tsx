@@ -11,7 +11,7 @@ export default function VerificationModal() {
           A link has been sent to your email, click the link to verify.
         </p>
       </div>
-      <Button asChild>
+      <Button variant="form" asChild>
         <Link className="block text-center" href={"/login"}>
           Continue
         </Link>

@@ -10,7 +10,7 @@ type Size = "sm" | "md" | "lg"
 const variantStyles: Record<Variant, string> = {
   primary: "bg-[#ffffff] hover:bg-[#fafafa] text-[#212121]",
   secondary: "bg-[#090F1C] hover:bg-[#000000] text-white",
-  form: "bg-[#212121] hover:opacity-90 text-white",
+  form: "bg-[#212121] hover:opacity-90 text-white w-full",
   outline:
     "bg-transparent border border-[#A0A0A0] hover:bg-gray-100 text-[#212121]",
   danger: "bg-red-600 hover:bg-red-700 text-white",
