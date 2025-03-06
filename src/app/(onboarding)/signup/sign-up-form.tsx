@@ -5,6 +5,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import Button from "@/component/ui/button"
+import Input from "@/component/ui/input"
 
 const signUpSchema = z.object({
   email: z.string().email("Invalid email format"),
@@ -39,11 +40,10 @@ export default function SignUpForm({
         <div className="flex flex-col gap-4">
           <div>
             <label className="block text-base text-[#212121]">Email</label>
-            <input
-              type="email"
-              {...register("email")}
-              className="mt-1 w-full rounded-lg border border-[#C0C3C9] px-4 py-2 text-base text-[#212121BF] outline-none placeholder:text-[#C0C3C9]"
+            <Input
+              register={register("email")}
               placeholder="Enter email address"
+              className="mt-1"
             />
             {errors.email && (
               <p className="mt-2 text-xs text-[11px] text-[#DC2626]">
@@ -53,11 +53,11 @@ export default function SignUpForm({
           </div>
           <div>
             <label className="block text-base text-[#212121]">Password</label>
-            <input
+            <Input
               type="password"
-              {...register("password")}
-              className="mt-1 w-full rounded-lg border border-[#C0C3C9] px-4 py-2 text-base text-[#212121BF] outline-none placeholder:text-[#C0C3C9]"
+              register={register("password")}
               placeholder="Enter password"
+              className="mt-1"
             />
             {errors.password && (
               <p className="mt-2 text-xs text-[11px] text-[#DC2626]">
