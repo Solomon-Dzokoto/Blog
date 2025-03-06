@@ -1,5 +1,30 @@
 @import "tailwindcss";
 
+@theme {
+  --font-circular-std: "circular-std", sans-serif;
+  --font-roboto: "roboto", sans-serif;
+  --font-mona-sans: "mona-sans", sans-serif;
+  --color-primary: #090f1c;
+  --color-secondary: #53686a;
+  --font-weight-bolder: 900;
+  --color-secondary-variant: #f6f8fa;
+  --color-white-background-color: #ffffff;
+  --color-black-background-variant-3: #212121;
+  --color-black-background-variant-4: #2a2a2a;
+  --color-black-background-variant-4: #1b1b1b;
+  --color-black-text-variant-1: #212121;
+  --color-black-text-variant-2: #090f1c;
+  --color-black-text-variant-3: #2a2a2a;
+  --color-black-text-variant-4: #1c1c1c;
+  --color-black-text-variant-5: #1b1b1b;
+  --color-grey-text-variant-1: #474747;
+  --color-grey-text-variant-2: #53686a;
+  --color-grey-text-variant-3: #84919d;
+  --color-white-text-variant-1: #ececec;
+  --color-black-button-variant-1: #1b1b1b;
+  --color-grey-border-variant-1: #a0a0a0;
+}
+
 input:-webkit-autofill {
   background-color: transparent !important;
   -webkit-box-shadow: 0 0 0px 1000px var(--background) inset !important;
