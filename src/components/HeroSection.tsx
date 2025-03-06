@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import Button from "./ui/button"
 
 const brandImages = [
   "logo2.svg",
@@ -29,16 +30,18 @@ const HeroSection = () => {
 
             {/* buttons */}
             <div className="mt-20 flex items-center gap-8 md:mt-0">
-              <button className="flex items-center gap-1.5 rounded-md bg-[#090F1C] py-3 pr-7 pl-5 text-lg text-white hover:bg-[#000000]">
-                Get started{" "}
-                <Image
-                  src="/images/arrow-right.svg"
-                  alt="right arrow"
-                  className=""
-                  width={20}
-                  height={20}
-                />
-              </button>
+              <Button variant="secondary" size="lg" asChild>
+                <Link href={"/login"}>
+                  Get started
+                  <Image
+                    src="/images/arrow-right.svg"
+                    alt="right arrow"
+                    className=""
+                    width={20}
+                    height={20}
+                  />
+                </Link>
+              </Button>
 
               <Link href="/" className="text-base text-[#090F1C]">
                 Learn more

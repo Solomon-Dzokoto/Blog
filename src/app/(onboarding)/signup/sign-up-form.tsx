@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
-import Button from "@/component/ui/button"
-import Input from "@/component/ui/input"
+import Button from "@/components/ui/button"
+import Input from "@/components/ui/input"
 
 const signUpSchema = z.object({
   email: z.string().email("Invalid email format"),
@@ -66,7 +66,7 @@ export default function SignUpForm({
             )}
           </div>
         </div>
-        <Button type="submit" disabled={!isValid}>
+        <Button variant="form" type="submit" disabled={!isValid}>
           Sign up
         </Button>
       </form>

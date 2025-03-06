@@ -1,6 +1,8 @@
 "use client"
 import { useState } from "react"
 import Image from "next/image"
+import Button from "./ui/button"
+import Link from "next/link"
 
 const Navbar = () => {
   const [open, setOpen] = useState<boolean>(false)
@@ -42,14 +44,13 @@ const Navbar = () => {
           Blog
         </li>
       </ul>
-      <button className="h-[48px] w-[124px] rounded-[12px] bg-[#ffffff] pt-[12] pr-[24] pb-[12] pl-[24] text-black hover:text-black hover:opacity-70">
-        Sign up
-      </button>
+      <Button asChild className="px-6 py-3 hover:opacity-70">
+        <Link href={"/signup"}>Sign up</Link>
+      </Button>
       <button
         onClick={handleClick}
         className="z-50 flex h-8 w-8 flex-col justify-between focus:outline-none sm:hidden"
       >
-        {" "}
         <span
           className={`h-1 w-full rounded bg-white transition-all duration-300 ${open ? "translate-y-4.5 rotate-45" : ""}`}
         ></span>
