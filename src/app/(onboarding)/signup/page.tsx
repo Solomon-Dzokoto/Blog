@@ -1,18 +1,17 @@
-import React from "react"
-import SignUpFlow from "./sign-up-flow"
+"use client"
+import React, { useState } from "react"
+import VerificationModal from "./verification-modal"
+import SignUpForm from "./sign-up-form"
 
 export default function SignUp() {
+  const [hasSubmitted, setHasSubmitted] = useState(false)
   return (
-    <div className="flex h-screen flex-col items-center justify-center space-y-20 px-[4.5%]">
-      <div
-        className="h-[72px] w-[284px]"
-        style={{
-          backgroundImage: "url('/images/Logo.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-      <SignUpFlow />
-    </div>
+    <>
+      {hasSubmitted ? (
+        <VerificationModal />
+      ) : (
+        <SignUpForm setHasSubmitted={setHasSubmitted} />
+      )}
+    </>
   )
 }
