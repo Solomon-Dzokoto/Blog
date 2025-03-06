@@ -16,6 +16,7 @@
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
+    "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/postcss": "^4.0.9",
     "@tanstack/react-query": "^5.67.1",
     "@tanstack/react-query-devtools": "^5.67.1",

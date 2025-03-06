@@ -52,7 +52,6 @@ const businessOwnerReviews = [
   },
 ]
 
-
 function BusinessOwnerReviewsSection() {
   const prevButtonRef = useRef(null)
   const nextButtonRef = useRef(null)
@@ -180,7 +179,6 @@ function BusinessOwnerReviewsSection() {
             <RightArrowIcon />
           </button>
         </div>
-        
       </article>
 
       <button
@@ -191,12 +189,10 @@ function BusinessOwnerReviewsSection() {
       </button>
     </section>
   )
-  
 }
 
 const LeftArrowIcon = () => {
   return (
- 
     <svg
       width="40"
       height="40"
@@ -216,7 +212,6 @@ const LeftArrowIcon = () => {
 }
 const RightArrowIcon = () => {
   return (
- 
     <svg
       width="40"
       height="40"
@@ -234,6 +229,5 @@ const RightArrowIcon = () => {
     </svg>
   )
 }
-
 
 export default BusinessOwnerReviewsSection
