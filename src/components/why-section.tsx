@@ -1,4 +1,9 @@
-const whyCardArr = [
+interface WhyCard {
+  title: string;
+  text: string;
+}
+
+const whyCardArr: WhyCard[] = [
   {
     title: "Automated Efficiency",
     text: "Save hours of manual dialing with AI-powered calls that reach your customers instantly, reducing workload and increasing productivity.",

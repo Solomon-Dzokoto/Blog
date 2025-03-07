@@ -13,7 +13,14 @@ interface NavigationParams {
   nextEl: HTMLElement | null
 }
 
-const businessOwnerReviews = [
+interface BusinessOwnerReview {
+  name: string
+  businessName: string
+  imagePath: string
+  text: string
+}
+
+const businessOwnerReviews: BusinessOwnerReview[] = [
   {
     name: "Kemi .O",
     businessName: "Gossip News Abuja",
