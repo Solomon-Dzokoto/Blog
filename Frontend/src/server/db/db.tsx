@@ -6,7 +6,6 @@ dotenv.config()
 
 const connectDB = async () => {
     try {
-
         if (mongoose.connection.readyState ===1){
             console.log("MongoDb is already connected")
             return;

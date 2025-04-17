@@ -1,49 +1,51 @@
-import { useState, useActionState, useEffect } from 'react';
-import { FaBackward } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom'
-import { onLogin } from '../../server/AuthCheck';
-import { useUserStore } from '../../store/useUserStore';
-import type { Output } from '../../server/AuthCheck'
-
+import { useState, useActionState, useEffect } from "react";
+import { FaBackward } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { onLogin } from "../../server/AuthCheck";
+import { useUserStore } from "../../store/useUserStore";
+import type { Output } from "../../server/AuthCheck";
 
 const SignIn = () => {
-  const userKeeper = useUserStore((state) => state.userKeeper)
-  const setUser = useUserStore((state) => state.setUser)
-  const navigate = useNavigate()
-  const [error, setError] = useState<string | null>("")
-  const [message, setMessage] = useState<string | null>("")
+  const userKeeper = useUserStore((state) => state.userKeeper);
+  const setUser = useUserStore((state) => state.setUser);
+  const navigate = useNavigate();
+  const [error, setError] = useState<string | null>("");
+  const [message, setMessage] = useState<string | null>("");
   const handleLogin = async (prevState: Output, formData: FormData) => {
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const checkedEmail = userKeeper?.find(data => data?.email === email)
-    const checkedPassword = userKeeper?.find(data => data?.password === password)
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const checkedEmail = userKeeper?.find((data) => data?.email === email);
+    const checkedPassword = userKeeper?.find(
+      (data) => data?.password === password
+    );
 
     if (!checkedEmail) {
-      setError("User does not exist -- You can go to the sign up page to create an account")
-      await new Promise(resolve => setTimeout(resolve, 8000))
-      errorTimer()
-      return
+      setError(
+        "User does not exist -- You can go to the sign up page to create an account"
+      );
+      await new Promise((resolve) => setTimeout(resolve, 8000));
+      errorTimer();
+      return;
     }
     if (!checkedPassword) {
-      setError("Password is incorrect")
-      await new Promise(resolve => setTimeout(resolve, 8000))
-      errorTimer()
-      return
+      setError("Password is incorrect");
+      await new Promise((resolve) => setTimeout(resolve, 8000));
+      errorTimer();
+      return;
     }
 
-    await new Promise(resolve => setTimeout(resolve, 5000))
-    setMessage("Please wait while we process your request...")
-    return await onLogin(prevState, formData)
-  }
-  const [data, action, isPending] = useActionState(handleLogin, {} as Output)
-
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    setMessage("Please wait while we process your request...");
+    return await onLogin(prevState, formData);
+  };
+  const [data, action, isPending] = useActionState(handleLogin, {} as Output);
 
   const errorTimer = () => {
     setTimeout(() => {
-      setError(null)
-      setMessage(null)
+      setError(null);
+      setMessage(null);
     }, 3000);
-  }
+  };
   useEffect(() => {
     if (data?.user) {
       console.log("User created");
@@ -51,16 +53,16 @@ const SignIn = () => {
       navigate("/user-home");
     }
     if (data?.error) {
-      setError(data?.error)
+      setError(data?.error);
       const timer = setTimeout(() => {
-        setError(null)
+        setError(null);
       }, 3000);
       return () => clearTimeout(timer);
     }
     if (data?.message) {
-      setMessage(data?.message)
+      setMessage(data?.message);
       const timer = setTimeout(() => {
-        setMessage(null)
+        setMessage(null);
       }, 3000);
       return () => clearTimeout(timer);
     }
@@ -68,7 +70,7 @@ const SignIn = () => {
 
   return (
     <div className="h-screen flex items-center justify-center p-4 mt-[25px] animate__animated animate__fadeInBottomLeft overflow-hidden">
-      <Link className='absolute top-0 left-4 cursor-pointer' to='/'>
+      <Link className="absolute top-0 left-4 cursor-pointer" to="/">
         <FaBackward />
       </Link>
       <div className="bg-white p-6 shadow-lg shadow-top border-2 border-[#1e5d6c] rounded-xl w-96 dark:bg-slate-100">
@@ -157,13 +159,16 @@ const SignIn = () => {
             </div>
             <br />
             <div>
-              <button className="bg-[#1e5d6c] text-[.9rem] text-xl text-white font-medium uppercase p-2 rounded-lg w-full opacity-90 hover:opacity-100" disabled={isPending}>
-                {isPending ? 'Loading..' : 'Login'}
+              <button
+                className="bg-[#1e5d6c] text-[.9rem] text-xl text-white font-medium uppercase p-2 rounded-lg w-full opacity-90 hover:opacity-100"
+                disabled={isPending}
+              >
+                {isPending ? "Loading.." : "Login"}
               </button>
             </div>
             <div className="text-[18px] text-center mt-4">
               <p>
-                Don't have an account?{' '}
+                Don't have an account?{" "}
                 <Link
                   className="capitalize text-[#1e5d6c] hover:underline cursor-pointer"
                   to="/signup"

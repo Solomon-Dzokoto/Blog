@@ -1,20 +1,21 @@
-import { Navigate, Outlet, useLocation, } from "react-router-dom"
-import Redirect from "../Pages/Redirect"
-import { useUserStore } from "../store/useUserStore"
+import { Outlet, useNavigate } from "react-router-dom";
+// import Redirect from "../Pages/Redirect";
+import { useUserStore } from "../store/useUserStore";
+import { useEffect } from "react";
 
 const RequiredUser = () => {
-    const user  = useUserStore(state=>state.user);
-    const location = useLocation()
+  const user = useUserStore((state) => state.user);
+  const navigate = useNavigate();
 
-    if (!user) {
-        console.log("user not found")
-        return <Redirect />
+  useEffect(() => {
+    if (!user || user === null) {
+      console.log("user not found");
+      navigate("/signin");
     }
-    return (
-        user ?
-         <Outlet /> 
-         : <Navigate to="/user-home" state={{ from: location }} replace />
-    )
-}
+    navigate("/home");
+  }, [user, navigate]);
 
-export default RequiredUser
+  return <Outlet />;
+};
+
+export default RequiredUser;

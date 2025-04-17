@@ -11,18 +11,16 @@ const Signup = () => {
   const setUser = useUserStore((state) => state.setUser);
   const addUserKeeper = useUserStore((state) => state.addUserKeeper);
 
-
-
-  const [error, setError] = useState<string | null>(null)
-  const [message, setMessage] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const handleSubmit = async (prevState: Output, formData: FormData) => {
     const email = formData.get("email") as string;
     try {
-      const checkedEmail = userKeeper?.find(data => data?.email === email)
+      const checkedEmail = userKeeper?.find((data) => data?.email === email);
       if (checkedEmail) {
         setError("User already exists");
-        await new Promise(resolve => setTimeout(resolve, 8000))
-        errorTimer()
+        await new Promise((resolve) => setTimeout(resolve, 8000));
+        errorTimer();
         return;
       }
     } catch (error) {
@@ -31,11 +29,11 @@ const Signup = () => {
         error instanceof Error ? error.message : "Unknown user"
       );
       setError(`User exist:${error} `);
-      await new Promise(resolve => setTimeout(resolve, 8000))
-      return
+      await new Promise((resolve) => setTimeout(resolve, 8000));
+      return;
     }
-    setMessage("Please wait while we process your request...")
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    setMessage("Please wait while we process your request...");
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return await onSubmit(prevState, formData);
   };
   const [data, action, isPending] = useActionState(handleSubmit, {} as Output);
@@ -43,47 +41,43 @@ const Signup = () => {
 
   const errorTimer = () => {
     setTimeout(() => {
-      setError(null)
+      setError(null);
     }, 3000);
-  }
+  };
 
   useEffect(() => {
-
     const checkOut = async () => {
       if (data?.user) {
         console.log("User created");
         setUser(data.user);
-        addUserKeeper(data.user)
-        setMessage("User created successfully")
-        await new Promise(resolve => setTimeout(resolve, 3000))
-        errorTimer()
+        addUserKeeper(data.user);
+        setMessage("User created successfully");
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        errorTimer();
         navigate("/user-home");
       }
       if (data?.error) {
-        setError(data?.error)
+        setError(data?.error);
         const timer = setTimeout(() => {
-          setError(null)
+          setError(null);
         }, 3000);
         return () => clearTimeout(timer);
       } else {
-        setError(null)
+        setError(null);
       }
       if (data?.message) {
-        setMessage(data?.message)
+        setMessage(data?.message);
         const timer = setTimeout(() => {
-          setMessage(null)
+          setMessage(null);
         }, 3000);
         return () => clearTimeout(timer);
       } else {
-        setMessage(null)
+        setMessage(null);
       }
-    }
+    };
 
-    checkOut()
-
+    checkOut();
   }, [data]);
-
-
 
   return (
     <div>
@@ -97,21 +91,15 @@ const Signup = () => {
             <div className="text-2xl text-[#1e5d6c] font-bold capitalize text-center mb-4">
               <h3>Create an account !</h3>
             </div>
-            {
-              error
-                ? (
-                  <div className="text-red-600 text-center text-sm mb-2">
-                    {error}
-                  </div>)
-                : message
-                  ? (
-                    <div className="text-green-600 text-center text-sm mb-2">
-                      {error}
-                    </div>
-                  )
-                  : null
-
-            }
+            {error ? (
+              <div className="text-red-600 text-center text-sm mb-2">
+                {error}
+              </div>
+            ) : message ? (
+              <div className="text-green-600 text-center text-sm mb-2">
+                {error}
+              </div>
+            ) : null}
 
             <div>
               <div>

@@ -138,6 +138,7 @@ export const onPost = async (prev: PostProps, formData: FormData) : Promise<Post
     const title = formData.get("title") as string;
     const details = formData.get("details") as string;
     const category = formData.get("category") as string;
+ 
     if (!title.trim() || !details.trim() || !category) {
       return {
         error: "All fields are required",
